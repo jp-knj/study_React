@@ -11,13 +11,16 @@ import ReactDom from 'react-dom';
 const App = () => {
 
   // Declare the variable
-  const buttonText = 'Click Me!';
+  // const buttonText = 'Click Me!';
+
+  // Declare the other variable
+  const buttonText = { text :'Click Me'};
 
   return (
     <div>
       <label className="label" for="name">Enter name:</label>
       <input id="name" type="text"/>
-      <button style={{backgroundColor: 'blue', color: 'white'}}>{getButtonText()}</button>
+      <button style={{backgroundColor: 'blue', color: 'white'}}>{buttonText.text}</button>
     </div>
   );
 };

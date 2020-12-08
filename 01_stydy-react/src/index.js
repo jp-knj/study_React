@@ -16,10 +16,11 @@ const App = () => {
   // Declare the other variables
   const buttonText = { text :'Click Me'};
   const style = { backgroundColor: 'blue', color: 'white'};
+  const labelText = 'Enter name:';
 
   return (
     <div>
-      <label className="label" for="name">Enter name:</label>
+      <label className="label" for="name">{labelText</label>
       <input id="name" type="text"/>
       <button style={style}>{buttonText.text}</button>
     </div>

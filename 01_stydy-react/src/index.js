@@ -2,10 +2,25 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+// Define a function
+  function getButtonText(){
+    return 'Click Me';
+  }
+
 // Create a react component
 const App = () => {
-  return <div>Hi there</div>;
-}
+
+  // Declare the variable
+  const buttonText = 'Click Me!';
+
+  return (
+    <div>
+      <label className="label" for="name">Enter name:</label>
+      <input id="name" type="text"/>
+      <button style={{backgroundColor: 'blue', color: 'white'}}>{getButtonText()}</button>
+    </div>
+  );
+};
 
 // Take the react component and show it on the screen
 ReactDom.render(

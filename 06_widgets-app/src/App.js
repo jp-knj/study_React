@@ -19,10 +19,8 @@ const items = [
 
 export default () => {
   return (
-    <>
-      <br />
+    <div>
       <Search />
-      <Accordion items={items} />
-    </>
+    </div>
   );
 };

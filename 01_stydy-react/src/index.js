@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <div>
-      <label className="label" for="name">{labelText</label>
+      <label className="label" for="name">{labelText}</label>
       <input id="name" type="text"/>
       <button style={style}>{buttonText.text}</button>
     </div>

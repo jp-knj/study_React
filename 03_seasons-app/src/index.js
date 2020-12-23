@@ -13,17 +13,22 @@ class App extends React.Component {
     );
   }
 
-  // React says we have to define render!!
-  render() {
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat){
-      return <SeasonDisplay lat={this.state.lat}/>
+      return <SeasonDisplay lat={this.state.lat}/>;
     }
 
     if (!this.state.errorMessage && this.state.lat){
-      return <SeasonDisplay lat={this.state.lat}/>
+      return  <SeasonDisplay lat={this.state.lat}/>;
     }
       return <Spinner/>;
-  }
+
+  };
+
+  // React says we have to define render!!
+  render() {
+    return <div className="border red">{this.renderContent()}</div>
+  };
 }
 
 ReactDOM.render(<App />, document.querySelector('#root'));

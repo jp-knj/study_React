@@ -1,10 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import * as React from "react";
+import { useState } from "react";
+import { render } from "react-dom";
+import { Example } from "./Animation/Example";
+import { Refresh } from "./Animation/Refresh";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import "./Animation/styles.css";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  return (
+    <>
+      <Refresh onClick={() => setCount(count + 1)} />
+      <div className="example-container">
+        <Example key={count} />
+      </div>
+    </>
+  );
+};
+
+render(<App />, document.getElementById("root"));

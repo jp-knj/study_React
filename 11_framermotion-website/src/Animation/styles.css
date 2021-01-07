@@ -10,13 +10,6 @@ body {
   align-items: center;
 }
 
-.example-container div {
-  background: white;
-  border-radius: 30px;
-  width: 150px;
-  height: 150px;
-}
-
 .refresh {
   padding: 10px;
   position: absolute;

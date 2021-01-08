@@ -10,76 +10,32 @@ export default function App() {
 
   const rotationRange = useTransform(
     scrollY,
-    // edit these ranges to make the scrolling more smooth or more sticky
-    // TODO: you can programatically compute the ratios using (1200 / scrollPosY) to get the last value (2) and subtract from there
-    // 1200 = height used for the RotationLengthContainer
     [
       scrollPosY,
-      scrollPosY * 1.1,
-      scrollPosY * 1.3,
-      scrollPosY * 1.6,
-      scrollPosY * 1.9,
-      scrollPosY * 2
+      scrollPosY * 1.3,scrollPosY * 1.6,
+      scrollPosY * 1.9,scrollPosY * 2.1,
+      scrollPosY * 2.4
     ],
-    [0, -90, -90, -180, -180, -270]
+    [0, -90, -90, -180, -180, -180]
   );
-  const rotate = useSpring(rotationRange, { stiffness: 400, damping: 90 });
-
+  const rotate = useSpring(rotationRange, { stiffness: 900, damping: 100 });
   const [ref, { y }] = usePosition();
 
   useEffect(() => {
     setscrollPosY(y - 50);
   }, [y]);
   return (
-    // we have to use the ref on the parent because that will give us true distance from top
-    // if we use it on StickyRotatingContainer we'll get a much shorter distance since this container
-    // is rotating sa we scroll but its size is fixed
     <RotationLengthContainer ref={ref}>
       <StickyRotatingContainer style={{ rotate, x: "-50%" }}>
-        <div
-          style={{
-            position: "absolute",
-            right: "0",
-            top: "50%",
-            transform: "translate(105%, -50%)"
-          }}
-        >
+        <Section1>
           <Intro>something</Intro>
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            bottom: "0",
-            left: "50%",
-            transform: "translate(-50%, 105%)",
-            textOrientation: "sideways-right",
-            writingMode: "vertical-rl"
-          }}
-        >
+        </Section1>
+        <Section2>
           <Intro>another thing</Intro>
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "0",
-            transform: "translate(-105%, -50%) scale(-1)"
-          }}
-        >
+        </Section2>
+        <Section3>
           <Intro>one more thing</Intro>
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "50%",
-            transform: "translate(-50%, -105%) scale(-1)",
-            textOrientation: "sideways-right",
-            writingMode: "vertical-rl"
-          }}
-        >
-          <Intro>last thing</Intro>
-        </div>
+        </Section3>
       </StickyRotatingContainer>
     </RotationLengthContainer>
   );
@@ -94,6 +50,29 @@ const StickyRotatingContainer = styled(motion.div)`
   width: 500px;
 `;
 
+const Section1 = styled.section`
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(105%, -50%);
+`;
+
+const Section2 = styled.section`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 105%);
+  text-orientation: sideways-right;
+  writing-mode: vertical-rl;
+`;
+
+const Section3 = styled.section`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-105%, -50%) scale(-1);
+`;
+
 const Intro = styled.h1`
   font-family: "Six Caps", sans-serif;
   font-size: clamp(4rem, 6rem, 7rem);
@@ -103,5 +82,5 @@ const Intro = styled.h1`
 
 const RotationLengthContainer = styled.section`
   height: 1200px; // how long you want your rotation to last
-  margin: clamp(200px, 300px, 500px) 0; // making space for the last and first text to show
+  margin: clamp(200px, 300px, 800px) 0; // making space for the last and first text to show */
 `;

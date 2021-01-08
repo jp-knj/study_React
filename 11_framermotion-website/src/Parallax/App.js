@@ -1,39 +1,107 @@
-import React from "react";
-import { motion, useViewportScroll, useTransform } from "framer-motion";
-import { images } from "./images";
+import React, { useState, useEffect } from "react";
+import { motion, useViewportScroll, useTransform, useSpring } from "framer-motion";
+import styled from "styled-components";
 import "./styles.css";
-
-const ParallaxImage = ({ src, ...img }) => {
-  const [elementTop, setElementTop] = React.useState(false);
-  const ref = React.useRef(null);
-  const { scrollY } = useViewportScroll();
-
-  const y = useTransform(scrollY, [elementTop, elementTop + 1], [1, -1], {
-    clamp: false
-  });
-
-  React.useLayoutEffect(() => {
-    const element = ref.current;
-    setElementTop(element.offsetTop);
-  }, [ref]);
-
-  return (
-    <div className="img-container" ref={ref}>
-      <motion.div className="overlay" style={{ ...img, y }} />
-      <img src={src} alt="" />
-    </div>
-  );
-};
+import { usePosition } from "./usePosition";
 
 export default function App() {
-  const { scrollYProgress } = useViewportScroll();
-  const x = useTransform(scrollYProgress, [0, 1], [0, -3000]);
+  const { scrollY } = useViewportScroll();
+  const [scrollPosY, setscrollPosY] = useState(false);
+
+  const rotationRange = useTransform(
+    scrollY,
+    // edit these ranges to make the scrolling more smooth or more sticky
+    // TODO: you can programatically compute the ratios using (1200 / scrollPosY) to get the last value (2) and subtract from there
+    // 1200 = height used for the RotationLengthContainer
+    [
+      scrollPosY,
+      scrollPosY * 1.1,
+      scrollPosY * 1.3,
+      scrollPosY * 1.6,
+      scrollPosY * 1.9,
+      scrollPosY * 2
+    ],
+    [0, -90, -90, -180, -180, -270]
+  );
+  const rotate = useSpring(rotationRange, { stiffness: 400, damping: 90 });
+
+  const [ref, { y }] = usePosition();
+
+  useEffect(() => {
+    setscrollPosY(y - 50);
+  }, [y]);
   return (
-    <div className="App">
-      <motion.h1 style={{ x }}>Hello Parallax</motion.h1>
-      {images.map((img, i) => (
-        <ParallaxImage key={i} {...img} />
-      ))}
-    </div>
+    // we have to use the ref on the parent because that will give us true distance from top
+    // if we use it on StickyRotatingContainer we'll get a much shorter distance since this container
+    // is rotating sa we scroll but its size is fixed
+    <RotationLengthContainer ref={ref}>
+      <StickyRotatingContainer style={{ rotate, x: "-50%" }}>
+        <div
+          style={{
+            position: "absolute",
+            right: "0",
+            top: "50%",
+            transform: "translate(105%, -50%)"
+          }}
+        >
+          <Intro>something</Intro>
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: "0",
+            left: "50%",
+            transform: "translate(-50%, 105%)",
+            textOrientation: "sideways-right",
+            writingMode: "vertical-rl"
+          }}
+        >
+          <Intro>another thing</Intro>
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "0",
+            transform: "translate(-105%, -50%) scale(-1)"
+          }}
+        >
+          <Intro>one more thing</Intro>
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: "0",
+            left: "50%",
+            transform: "translate(-50%, -105%) scale(-1)",
+            textOrientation: "sideways-right",
+            writingMode: "vertical-rl"
+          }}
+        >
+          <Intro>last thing</Intro>
+        </div>
+      </StickyRotatingContainer>
+    </RotationLengthContainer>
   );
 }
+
+const StickyRotatingContainer = styled(motion.div)`
+  position: sticky;
+  top: 10px;
+  border: 1px rgba(0, 0, 0, 0.4) solid;
+  border-radius: 50%;
+  height: 500px;
+  width: 500px;
+`;
+
+const Intro = styled.h1`
+  font-family: "Six Caps", sans-serif;
+  font-size: clamp(4rem, 6rem, 7rem);
+  line-height: clamp(4rem, 6rem, 7rem);
+  margin: 0;
+`;
+
+const RotationLengthContainer = styled.section`
+  height: 1200px; // how long you want your rotation to last
+  margin: clamp(200px, 300px, 500px) 0; // making space for the last and first text to show
+`;

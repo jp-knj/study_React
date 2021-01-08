@@ -1,41 +1,11 @@
-* {
-  box-sizing: border-box;
+html,
+body {
+  min-height: 400vh;
+  font-family: "Six Caps", sans-serif;
 }
 
 body {
-  overflow-x: hidden;
-}
-
-h1 {
-  text-transform: uppercase;
-  font-size: 12rem;
-  letter-spacing: 1.5rem;
-  transform: translate(5%, -20%);
-  margin: 0;
-}
-
-.App {
-  font-family: Helvetica, sans-serif;
-  text-align: center;
-  padding: 20px 50px;
-  perspective: 1200px;
-}
-
-.img-container {
-  position: relative;
-  margin-bottom: 50px;
-  z-index: 1;
-}
-
-.overlay {
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-}
-
-img {
-  max-width: 100%;
-  transform: translateZ(0);
+  background: linear-gradient(250deg, #7b2ff7, #f107a3);
+  background-repeat: no-repeat;
+  font-size: 3rem;
 }

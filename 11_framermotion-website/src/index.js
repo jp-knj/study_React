@@ -1,8 +1,12 @@
-import * as React from "react";
-import { render } from "react-dom";
-import { Example } from "./Scroll/Example";
-import "./Scroll/styles.css";
+import React from "react";
+import ReactDOM from "react-dom";
 
-const App = () => <Example />;
+import App from "./Parallax/App";
 
-render(<App />, document.getElementById("root"));
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  rootElement
+);

@@ -31,8 +31,8 @@ export const Hero = () => {
   const { scrollY } = useViewportScroll();
   const [hasScrolled, setHasScrolled] = useState(false);
   const opacityRange = useTransform(scrollY, [15, 70], [1, 0]);
-  const yRange = useTransform(scrollY, [15, 100], [0, 15]);
-  const opacity = useSpring(opacityRange, { stiffness: 600, damping: 70 });
+  const yRange = useTransform(scrollY, [30, 100], [60, 100]);
+  const opacity = useSpring(opacityRange, { stiffness: 100, damping: 70 });
   const y = useSpring(yRange, { stiffness: 400, damping: 90 });
 
   scrollY.onChange(value => {
@@ -45,7 +45,9 @@ export const Hero = () => {
   return (
     <HeroSection>
       <Container>
-        <h1>成熟社会<br />Consotium</h1>
+        <h1
+          style={{ marginBottom: '100px' }}>
+          成熟社会<br />Consotium</h1>
         <TextContainer
           variants={introVariants}
           initial="initial"
@@ -69,7 +71,7 @@ export const Hero = () => {
 
 const HeroSection = styled(motion.section)`
   width: 100%;
-  height: 60vh;
+  height: 70vh;
   display: flex;
 `
 const Container = styled(motion.div)`
@@ -78,6 +80,7 @@ const Container = styled(motion.div)`
 
 const TextContainer = styled(motion.div)`
   display:flex;
+  margin-bottom: 200px;
 `
 
 const Title = styled(motion.div)`

@@ -48,5 +48,5 @@ const H6 = styled.h6`
   width: 29%;
   padding: 5px;
   padding-bottom: 2px;
-  text-align: center;
+  margin-bottom: 3px;
 `

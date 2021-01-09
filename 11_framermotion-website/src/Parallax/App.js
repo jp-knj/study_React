@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, useViewportScroll, useTransform, useSpring } from "framer-motion";
 import styled from "styled-components";
+import Section1 from "./components/Section1";
+import Section2 from "./components/Section2";
 import "./styles.css";
 import { usePosition } from "./usePosition";
 
@@ -13,7 +15,7 @@ export default function App() {
     [
       scrollPosY,
       scrollPosY * 1.3,scrollPosY * 1.6,
-      scrollPosY * 1.9,scrollPosY * 2.1,
+      scrollPosY * 1.6,scrollPosY * 2.1,
       scrollPosY * 2.4
     ],
     [0, -90, -90, -180, -180, -180]
@@ -27,12 +29,8 @@ export default function App() {
   return (
     <RotationLengthContainer ref={ref}>
       <StickyRotatingContainer style={{ rotate, x: "-50%" }}>
-        <Section1>
-          <Intro>something</Intro>
-        </Section1>
-        <Section2>
-          <Intro>another thing</Intro>
-        </Section2>
+        <Section1 />
+        <Section2 />
         <Section3>
           <Intro>one more thing</Intro>
         </Section3>
@@ -48,22 +46,7 @@ const StickyRotatingContainer = styled(motion.div)`
   border-radius: 50%;
   height: 500px;
   width: 500px;
-`;
-
-const Section1 = styled.section`
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translate(105%, -50%);
-`;
-
-const Section2 = styled.section`
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 105%);
-  text-orientation: sideways-right;
-  writing-mode: vertical-rl;
+  background-color: black;
 `;
 
 const Section3 = styled.section`

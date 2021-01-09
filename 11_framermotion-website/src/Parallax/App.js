@@ -3,6 +3,7 @@ import { motion, useViewportScroll, useTransform, useSpring } from "framer-motio
 import styled from "styled-components";
 import Section1 from "./components/Section1";
 import Section2 from "./components/Section2";
+import Section3 from "./components/Section3";
 import "./styles.css";
 import { usePosition } from "./usePosition";
 
@@ -20,7 +21,7 @@ export default function App() {
     ],
     [0, -90, -90, -180, -180, -180]
   );
-  const rotate = useSpring(rotationRange, { stiffness: 900, damping: 100 });
+  const rotate = useSpring(rotationRange, { stiffness: 1000, damping: 500 });
   const [ref, { y }] = usePosition();
 
   useEffect(() => {
@@ -31,9 +32,7 @@ export default function App() {
       <StickyRotatingContainer style={{ rotate, x: "-50%" }}>
         <Section1 />
         <Section2 />
-        <Section3>
-          <Intro>one more thing</Intro>
-        </Section3>
+        <Section3 />
       </StickyRotatingContainer>
     </RotationLengthContainer>
   );
@@ -47,20 +46,6 @@ const StickyRotatingContainer = styled(motion.div)`
   height: 500px;
   width: 500px;
   background-color: black;
-`;
-
-const Section3 = styled.section`
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translate(-105%, -50%) scale(-1);
-`;
-
-const Intro = styled.h1`
-  font-family: "Six Caps", sans-serif;
-  font-size: clamp(4rem, 6rem, 7rem);
-  line-height: clamp(4rem, 6rem, 7rem);
-  margin: 0;
 `;
 
 const RotationLengthContainer = styled.section`

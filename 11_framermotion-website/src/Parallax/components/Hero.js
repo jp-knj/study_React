@@ -1,31 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { motion, useViewportScroll, useSpring, useTransform } from "framer-motion";
 import styled from "styled-components";
-
-const initialAnimate = {
-  y: 20,
-  opacity: 0,
-};
-const introAnimate = {
-  y: 0,
-  opacity: 1,
-};
-
-const defaultTransition = {
-  ease: "easeInOut",
-  duration: 0.5
-};
-
-const introVariants = {
-  initial: {
-    y: 20,
-    opacity: 0,
-  },
-  enter: {
-    y: 0,
-    opacity: 1,
-  }
-}
 
 export const Hero = () => {
   const { scrollY } = useViewportScroll();
@@ -49,7 +24,6 @@ export const Hero = () => {
           </Text>
         </TextContainer>
         <ImgContainer style={{  }}>
-          <img/>
         </ImgContainer>
       </Container>
     </HeroSection>

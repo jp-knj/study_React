@@ -35,7 +35,6 @@ const H1 = styled.h1`
   font-size: 4rem;
   color: white;
   -webkit-text-stroke: 1px black;
-  text-stroke: 1px black;
 `
 
 const H6 = styled.h6`

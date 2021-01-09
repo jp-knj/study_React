@@ -29,31 +29,18 @@ const introVariants = {
 
 export const Hero = () => {
   const { scrollY } = useViewportScroll();
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const opacityRange = useTransform(scrollY, [15, 70], [1, 0]);
-  const yRange = useTransform(scrollY, [30, 100], [60, 100]);
-  const opacity = useSpring(opacityRange, { stiffness: 100, damping: 70 });
-  const y = useSpring(yRange, { stiffness: 400, damping: 90 });
+  const opacityRange = useTransform(scrollY, [30, 140], [1, 0]);
+  const yRange = useTransform(scrollY, [30, 70], [0, 100]);
 
-  scrollY.onChange(value => {
-    if (value > 100) {
-      setHasScrolled(true);
-    } else {
-      setHasScrolled(false);
-    }
-  });
+  const opacity = useSpring(opacityRange, { stiffness: 200, damping: 100 });
+  const y = useSpring(yRange, { stiffness: 200, damping: 100 });
+
+
   return (
     <HeroSection>
       <Container>
-        <h1
-          style={{ marginBottom: '100px' }}>
-          成熟社会<br />Consotium</h1>
-        <TextContainer
-          variants={introVariants}
-          initial="initial"
-          animate="enter"
-          transition={defaultTransition}
-          style={{ opacity, y, }}>
+        <h1 style={{ marginBottom: '100px', opacity, y}}> 成熟社会<br />Consotium</h1>
+        <TextContainer style={{ opacity, y }}>
           <Title>
             <h6>About</h6>
           </Title>
@@ -61,7 +48,7 @@ export const Hero = () => {
             <p>こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。</p>
           </Text>
         </TextContainer>
-        <ImgContainer>
+        <ImgContainer style={{  }}>
           <img/>
         </ImgContainer>
       </Container>
@@ -80,7 +67,6 @@ const Container = styled(motion.div)`
 
 const TextContainer = styled(motion.div)`
   display:flex;
-  margin-bottom: 200px;
 `
 
 const Title = styled(motion.div)`

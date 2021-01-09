@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Section1 = () => {
+export const Section2 = () => {
   return (
     <>
       <Section>
         <Container>
-          <H6>私たちについて</H6>
-          <H1>About</H1>
+          <H6>活動報告について</H6>
+          <H1>Activity</H1>
           <p>こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。</p>
         </Container>
       </Section>
@@ -15,18 +15,20 @@ export const Section1 = () => {
   )
 }
 
-export default Section1;
+export default Section2;
 
 const Section = styled.section`
   position: absolute;
-  right: -10%;
-  top: 50%;
-  transform: translate(105%, -50%);
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 105%);
+  text-orientation: sideways-right;
+  writing-mode: vertical-rl;
 `;
 
 const Container = styled.div`
-  height: 300px;
-  width: 700px;
+  /* height: 300px;
+  width: 700px; */
 `
 
 const H1 = styled.h1`
@@ -46,7 +48,6 @@ const H6 = styled.h6`
   color: white;
   -webkit-text-stroke: 0.008rem black;
   background-color: black;
-  width: 29%;
   padding: 5px;
   padding-bottom: 2px;
   margin-bottom: 3px;

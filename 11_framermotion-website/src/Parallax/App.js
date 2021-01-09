@@ -21,7 +21,7 @@ export default function App() {
     ],
     [0, -90, -90, -180, -180, -180]
   );
-  const rotate = useSpring(rotationRange, { stiffness: 1000, damping: 500 });
+  const rotate = useSpring(rotationRange, { stiffness: 1500, damping: 200 });
   const [ref, { y }] = usePosition();
 
   useEffect(() => {
@@ -41,14 +41,14 @@ export default function App() {
 const StickyRotatingContainer = styled(motion.div)`
   position: sticky;
   top: 10px;
-  border: 1px rgba(0, 0, 0, 0.4) solid;
+  border: 1px red solid;
   border-radius: 50%;
-  height: 500px;
-  width: 500px;
+  height: 800px;
+  width: 800px;
   background-color: black;
 `;
 
 const RotationLengthContainer = styled.section`
-  height: 1200px; // how long you want your rotation to last
+  height: 1800px; // how long you want your rotation to last
   margin: clamp(200px, 300px, 800px) 0; // making space for the last and first text to show */
 `;

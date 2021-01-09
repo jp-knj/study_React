@@ -31,12 +31,14 @@ export const Hero = () => {
 }
 
 const HeroSection = styled(motion.section)`
+  margin: 0 auto;
   width: 100%;
   height: 70vh;
   display: flex;
 `
 const Container = styled(motion.div)`
-  padding: 75px 75px 75px 75px;
+  margin: 0 auto;
+  padding: 150px 0;
 `
 
 const TextContainer = styled(motion.div)`
@@ -52,6 +54,5 @@ const Text = styled(motion.div)`
 const ImgContainer = styled(motion.div)`
   height: 300px;
   background-color: red;
-
 `
 export default Hero;

@@ -6,8 +6,8 @@ export const Section3 = () => {
     <>
       <Section>
         <Container>
-          <H6>活動報告について</H6>
-          <H1>Activity</H1>
+          <H6>働く人々</H6>
+          <H1>People</H1>
           <p>こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。</p>
         </Container>
       </Section>

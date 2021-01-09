@@ -19,7 +19,7 @@ export default Section1;
 
 const Section = styled.section`
   position: absolute;
-  right: -10%;
+  right: 0;
   top: 50%;
   transform: translate(105%, -50%);
 `;

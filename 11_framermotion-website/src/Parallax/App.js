@@ -51,4 +51,5 @@ const StickyRotatingContainer = styled(motion.div)`
 const RotationLengthContainer = styled.section`
   height: 1800px; // how long you want your rotation to last
   margin: clamp(200px, 300px, 800px) 0; // making space for the last and first text to show */
+  margin-bottom: 200px;
 `;

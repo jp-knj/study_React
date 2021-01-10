@@ -5,9 +5,7 @@ import { FiArrowRight } from "react-icons/fi";
 
 export const Button = () => {
   return (
-    <Btn
-      whileHover={{ width: '200px' }}
-    >
+    <Btn whileHover={{ width: '200px' }}>
       <FiArrowRight size={30} />
     </Btn>
 

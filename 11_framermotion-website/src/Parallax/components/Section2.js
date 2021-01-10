@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Card } from './Card';
 
 export const Section2 = () => {
   return (
@@ -9,6 +10,7 @@ export const Section2 = () => {
           <H6>活動報告について</H6>
           <H1>Activity</H1>
           <p>こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。</p>
+          <Card/>
         </Container>
       </Section>
     </>

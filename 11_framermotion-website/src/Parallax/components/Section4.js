@@ -1,6 +1,5 @@
 import React from 'react'
-import styled, { ThemeConsumer } from "styled-components";
-import { Button } from './Button';
+import styled from "styled-components";
 
 export const Section4 = () => {
   return (
@@ -15,8 +14,8 @@ export const Section4 = () => {
               <Thumbnail></Thumbnail>
             </ThumbnailContainer>
             <NewsInfo>
-              <NewsTitle></NewsTitle>
-              <NewsDate></NewsDate>
+              <NewsTitle>年末年始のお知らせ</NewsTitle>
+              <NewsDate>2020.12.20</NewsDate>
             </NewsInfo>
           </News>
           <News>
@@ -24,8 +23,8 @@ export const Section4 = () => {
               <Thumbnail></Thumbnail>
             </ThumbnailContainer>
             <NewsInfo>
-              <NewsTitle></NewsTitle>
-              <NewsDate></NewsDate>
+              <NewsTitle>年末年始のお知らせ</NewsTitle>
+              <NewsDate>2020.12.20</NewsDate>
             </NewsInfo>
           </News>
         </NewsContainer>
@@ -72,24 +71,45 @@ const P = styled.p`
   font-weight: 200;
   letter-spacing: 5px;
   font-size: 20px;
-`
-
-const News = styled.a`
+  margin-bottom: 40px;
 `
 
 const NewsContainer = styled.div`
 `
 
+const News = styled.a`
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+`
+
 const ThumbnailContainer = styled.div`
+  position: relative;
+  flex-shrink: 0;
+  width: 180px;
+  height: 120px;
+  margin-right: 40px;
+  overflow: hidden;
 `
 
 const Thumbnail = styled.div`
+  height: 100%;
+  background-size: cover;
+  background-position: 50%;
+  background-color: black;
 `
 
 const NewsInfo = styled.div`
 `
 
-const NewsTitle = styled.p``
-const NewsDate = styled.p``
+const NewsTitle = styled.p`
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+`
+const NewsDate = styled.p`
+  font-size: 16px;
+  font-weight: 300;
+`
 
 export default Section4;

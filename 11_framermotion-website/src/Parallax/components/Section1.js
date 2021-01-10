@@ -8,7 +8,8 @@ export const Section1 = () => {
         <Container>
           <H6>私たちについて</H6>
           <H1>About</H1>
-          <p>こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。</p>
+          <P>精神的豊かさや生活の<br />
+            質の向上を重視する、平和で自由な社会へめざす。</P>
         </Container>
       </Section>
     </>
@@ -45,8 +46,15 @@ const H6 = styled.h6`
   color: white;
   -webkit-text-stroke: 0.008rem black;
   background-color: black;
-  width: 29%;
+  text-align: center;
+  width: 150px;
   padding: 5px;
   padding-bottom: 2px;
   margin-bottom: 3px;
+`
+
+const P = styled.p`
+  font-weight: 200;
+  letter-spacing: 5px;
+  font-size: 20px;
 `

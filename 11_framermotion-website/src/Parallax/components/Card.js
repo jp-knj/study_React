@@ -1,8 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
+import { Button } from './Button'
 
 
 export const Card = () => {
   return (
-    <h1>Hello World</h1>
+    <Cards>
+      <CardImg/>
+      <CardTitle></CardTitle>
+        <CardText></CardText>
+      <Button/>
+    </Cards>
   );
 };
+
+const Cards = styled.div`
+`
+
+const CardImg = styled.div`
+`
+
+const CardTitle = styled.div`
+`
+
+const CardText = styled.div`
+`

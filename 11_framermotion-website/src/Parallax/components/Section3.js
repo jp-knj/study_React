@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
+import { motion } from 'framer-motion';
+
+const buttonIconVariants = {
+  hover: {
+    scale: 2,
+  },
+  tap: {
+    scale: 1.4,
+  },
+};
 
 export const Section3 = () => {
   return (
@@ -20,8 +30,19 @@ export const Section3 = () => {
                 <Name>Kenji Tomita</Name>
               </InfoContainer>
             </Slider>
-            <ButtonLeft><MdNavigateBefore/></ButtonLeft>
-            <ButtonRight><MdNavigateNext/></ButtonRight>
+            <ButtonLeft
+              variants={buttonIconVariants}
+              whileHover="hover"
+              whileTap="tap">
+              <MdNavigateBefore/>
+            </ButtonLeft>
+            <ButtonRight
+              variants={buttonIconVariants}
+              whileHover="hover"
+              whileTap="tap"
+            >
+              <MdNavigateNext />
+            </ButtonRight>
           </SliderContainer>
         </Container>
       </Section>
@@ -71,7 +92,7 @@ const P = styled.p`
 
 const SliderContainer = styled.div`
   width: 100%;
-  max-width: 80rem;
+  max-width: 800px;
   height: 80%;
   position: relative;
 `
@@ -130,14 +151,14 @@ const Name = styled.div`
   }
 `
 
-const ButtonLeft = styled.div`
+const ButtonLeft = styled(motion.button)`
   position: absolute;
   top: 50%;
   bottom: 0;
   left: 0;
 `
 
-const ButtonRight = styled.div`
+const ButtonRight = styled(motion.button)`
   position: absolute;
   top: 50%;
   bottom: 0;

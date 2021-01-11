@@ -8,7 +8,18 @@ export const Section3 = () => {
         <Container>
           <H6>働く人々</H6>
           <H1>People</H1>
-          <P>職員一人ひとりに、清新な志が求められます。<br/>新時代の自治体をめざして漕ぎ出していきます。</P>
+          <P>職員一人ひとりに、清新な志が求められます。<br />新時代の自治体をめざして漕ぎ出していきます。</P>
+          <SliderContainer>
+            <Slider>
+              <ImgContainer></ImgContainer>
+              <InfoContainer>
+                <Comment></Comment>
+                <Name>Kenji Tomita</Name>
+              </InfoContainer>
+            </Slider>
+            <ButtonLeft></ButtonLeft>
+            <ButtonRight></ButtonRight>
+          </SliderContainer>
         </Container>
       </Section>
     </>
@@ -54,3 +65,12 @@ const P = styled.p`
   letter-spacing: 5px;
   font-size: 20px;
 `
+
+const SliderContainer = styled.div``
+const Slider = styled.div``
+const ImgContainer = styled.div``
+const InfoContainer = styled.div``
+const Comment = styled.div``
+const Name = styled.div``
+const ButtonLeft = styled.div``
+const ButtonRight = styled.div``

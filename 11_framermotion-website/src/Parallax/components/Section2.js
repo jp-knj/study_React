@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card } from './Card';
+// import { Card } from './Card';
 
 export const Section2 = () => {
   return (
@@ -12,10 +12,26 @@ export const Section2 = () => {
           <P>地域特性を最大限に活かす知恵と工夫をこらし<br />
           新しく構想し、生み出していく「創造」の時代に<br />
           立ち向かわなければなりません</P>
-          <Inner>
-            <Card />
-            <Card />
-          </Inner>
+          <ActivityContainer>
+            <Card>
+              <ThumbnailContainer>
+                <Thumbnail></Thumbnail>
+              </ThumbnailContainer>
+              <CardInfo>
+                <CardTitle>年末年始のお知らせ</CardTitle>
+                <CardDate>2020.12.20</CardDate>
+              </CardInfo>
+            </Card>
+            <Card style={{ marginRight: "40px" }}>
+              <ThumbnailContainer>
+                <Thumbnail></Thumbnail>
+              </ThumbnailContainer>
+              <CardInfo>
+                <CardTitle>年末年始のお知らせ</CardTitle>
+                <CardDate>2020.12.20</CardDate>
+              </CardInfo>
+            </Card>
+          </ActivityContainer>
         </Container>
       </Section>
     </>
@@ -37,8 +53,8 @@ const Container = styled.div`
  height: 900px;
 `
 
-const Inner = styled.div`
-  height: 100%;
+const ActivityContainer = styled.div`
+  height: 60%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -63,7 +79,6 @@ const H6 = styled.h6`
   color: white;
   -webkit-text-stroke: 0.008rem black;
   background-color: black;
-
 `
 
 const P = styled.p`
@@ -73,4 +88,33 @@ const P = styled.p`
   letter-spacing: 5px;
   font-size: 20px;
   height: auto;
+`
+const Card = styled.a``
+
+const ThumbnailContainer = styled.div`
+  position: relative;
+  flex-shrink: 0;
+  width: 250px;
+  height: 200px;
+  margin-right: 40px;
+  overflow: hidden;
+  /* background-color: black; */
+`
+const Thumbnail = styled.div`
+  width: 100%;
+  background-size: cover;
+  background-position: 50%;
+  background-color: black;
+`
+const CardInfo = styled.div`
+  margin: 0 20px;
+`
+const CardTitle = styled.div`
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 10px;
+`
+const CardDate = styled.div`
+  font-size: 16px;
+  font-weight: 300;
 `

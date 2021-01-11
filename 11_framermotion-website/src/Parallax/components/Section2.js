@@ -1,12 +1,26 @@
-import React from 'react';
 import styled from 'styled-components';
-// import { Card } from './Card';
+import React, { useRef, useState, useLayoutEffect } from "react";
+import { motion, useViewportScroll, useTransform, useSpring } from "framer-motion";
 
 export const Section2 = () => {
+  const { scrollY } = useViewportScroll();
+  const ref = useRef();
+  const [offsetTop, setOffsetTop] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!ref.current) return null;
+    setOffsetTop(ref.current.offsetTop);
+  }, [ref]);
+
+  const opacityRange = useTransform(scrollY, [offsetTop + 1600, offsetTop + 1750], [1, 0]);
+  // const yRange = useTransform(scrollY, [offsetTop + 1150, offsetTop + 1400], [0, 100]);
+
+  const opacity = useSpring(opacityRange, { stiffness: 200, damping: 100 });
+  // const y = useSpring(yRange, { stiffness: 200, damping: 100 });
   return (
     <>
       <Section>
-        <Container>
+        <Container ref={ref} style={{ opacity }}>
           <H6>活動報告について</H6>
           <H1>Activity</H1>
           <P>地域特性を最大限に活かす知恵と工夫をこらし<br />
@@ -49,15 +63,8 @@ const Section = styled.section`
   writing-mode: vertical-rl;
 `;
 
-const Container = styled.div`
- height: 900px;
-`
-
-const ActivityContainer = styled.div`
-  height: 60%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+const Container = styled(motion.div)`
+ height: 800px;
 `
 
 const H1 = styled.h1`
@@ -69,7 +76,7 @@ const H1 = styled.h1`
 `
 
 const H6 = styled.h6`
-  margin-left: -5px;
+  margin-right: 20px;
   padding: 5px;
   text-align: center;
   font-weight: 500;
@@ -83,22 +90,32 @@ const H6 = styled.h6`
 
 const P = styled.p`
   margin: auto 0;
-  margin-left: 40px;
+  margin-left: 10px;
   font-weight: 200;
   letter-spacing: 5px;
   font-size: 20px;
   height: auto;
 `
-const Card = styled.a``
+
+const ActivityContainer = styled.div`
+  height: auto;
+  width: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`
+
+const Card = styled.a`
+ height: 250px;
+ width: 100%;
+`
 
 const ThumbnailContainer = styled.div`
   position: relative;
   flex-shrink: 0;
   width: 250px;
   height: 200px;
-  margin-right: 40px;
   overflow: hidden;
-  /* background-color: black; */
 `
 const Thumbnail = styled.div`
   width: 100%;
@@ -110,11 +127,13 @@ const CardInfo = styled.div`
   margin: 0 20px;
 `
 const CardTitle = styled.div`
+  height: auto;
   font-size: 24px;
   font-weight: 400;
   margin-left: 10px;
 `
 const CardDate = styled.div`
+  height: auto;
   font-size: 16px;
   font-weight: 300;
 `

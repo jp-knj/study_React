@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 
 export const Section3 = () => {
   return (
@@ -11,14 +12,16 @@ export const Section3 = () => {
           <P>職員一人ひとりに、清新な志が求められます。<br />新時代の自治体をめざして漕ぎ出していきます。</P>
           <SliderContainer>
             <Slider>
-              <ImgContainer></ImgContainer>
+              <ImgContainer>
+                <img src="https://d33wubrfki0l68.cloudfront.net/dd23708ebc4053551bb33e18b7174e73b6e1710b/dea24/static/images/wallpapers/shared-colors@2x.png"></img>
+              </ImgContainer>
               <InfoContainer>
-                <Comment></Comment>
+                <Comment>自由で便利な生活はできるが、成長がピークに達し色々な状況を呈している社会のことである。</Comment>
                 <Name>Kenji Tomita</Name>
               </InfoContainer>
             </Slider>
-            <ButtonLeft></ButtonLeft>
-            <ButtonRight></ButtonRight>
+            <ButtonLeft><MdNavigateBefore/></ButtonLeft>
+            <ButtonRight><MdNavigateNext/></ButtonRight>
           </SliderContainer>
         </Container>
       </Section>
@@ -66,11 +69,77 @@ const P = styled.p`
   font-size: 20px;
 `
 
-const SliderContainer = styled.div``
-const Slider = styled.div``
-const ImgContainer = styled.div``
-const InfoContainer = styled.div``
-const Comment = styled.div``
-const Name = styled.div``
-const ButtonLeft = styled.div``
-const ButtonRight = styled.div``
+const SliderContainer = styled.div`
+  width: 100%;
+  max-width: 80rem;
+  height: 80%;
+  position: relative;
+`
+
+const Slider = styled.div`
+ width: 100%;
+ height: 100%;
+ margin: 0 auto;
+ padding: 0 4rem;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+`
+
+const ImgContainer = styled.div`
+  height: 400px;
+  width: 300px;
+  margin: 40px 0;
+  background-color: transparent;
+  border-radius: 10px;
+  box-shadow: 5px 3px 33px -15px black;
+  overflow: hidden;
+`
+
+const InfoContainer = styled.div`
+  max-width: 300px;
+  position: absolute;
+  bottom: -30px;
+  right: -40px;
+  padding: 10px 20px;
+  background-color: white;
+`
+
+const Comment = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+`
+
+const Name = styled.div`
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  padding: 5px;
+  font-weight: 700;
+  color: black;
+  z-index: 6;
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.4;
+  }
+`
+
+const ButtonLeft = styled.div`
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  left: 0;
+`
+
+const ButtonRight = styled.div`
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  right: 0;
+`

@@ -43,19 +43,6 @@ const H1 = styled.h1`
   -webkit-text-stroke: 1px black;
 `
 
-const H6 = styled.h6`
-  font-weight: 500;
-  letter-spacing: 3px;
-  font-size: 1rem;
-  margin-bottom: -5px;
-  color: white;
-  -webkit-text-stroke: 0.008rem black;
-  background-color: black;
-  padding: 5px;
-  padding-bottom: 2px;
-  margin-bottom: 3px;
-`
-
 const ImgContainer = styled.div`
   margin: 0 auto;
   height: 600px;

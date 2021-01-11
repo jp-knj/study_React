@@ -14,17 +14,9 @@ export const Hero = () => {
     <HeroSection>
       <Container style={{ opacity, y }}>
         <H1>成熟社会<br/>Consotium</H1>
-        <TextContainer style={{ opacity, y }}>
-          <Title>
-            <H6>OURS</H6>
-          </Title>
-          <Text>
-            <p>こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。こちらはテキストになります。</p>
-          </Text>
-        </TextContainer>
       </Container>
-        <ImgContainer style={{}}>
-        </ImgContainer>
+      <ImgContainer>
+      </ImgContainer>
     </HeroSection>
   )
 }
@@ -32,20 +24,17 @@ export const Hero = () => {
 const HeroSection = styled(motion.section)`
   margin: 0 auto;
   width: 100%;
-  height: 60vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `
 const Container = styled(motion.div)`
-  margin: 0 auto;
-  padding: 50px 0;
-`
+  margin: 100px auto 50px auto;
 
-const TextContainer = styled(motion.div)`
-  display:flex;
 `
 
 const H1 = styled.h1`
+  text-align: center;
   margin-bottom: 20px;
   font-weight: 800;
   font-size: 8rem;
@@ -66,17 +55,12 @@ const H6 = styled.h6`
   padding-bottom: 2px;
   margin-bottom: 3px;
 `
-const Title = styled(motion.div)`
-  width: 300px;
-`
-const Text = styled(motion.div)`
-  width: 700px;
-`
+
 const ImgContainer = styled.div`
   margin: 0 auto;
-  height: 300px;
-  width: 600px;
-  background-color: red;
+  height: 600px;
+  width: 100%;
+  background-color: black;
   z-index:2;
 `
 export default Hero;

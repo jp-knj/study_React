@@ -1,8 +1,9 @@
-import React, { useState, memo } from 'react';
+import React from 'react';
+/* Let's keep the exact same App as above with React.memo, but add one small feature. Let's make it possible to delete a skill when we click on it. To do that, we need to filter the skills array according to the skill we click on. For that, we create the handleRemoveSkill function in App */
 
 function App() {
-  const [skill, setSkill] = useState('')
-  const [skills, setSkills] = useState([
+  const [skill, setSkill] = React.useState('')
+  const [skills, setSkills] = React.useState([
     'HTML', 'CSS', 'JavaScript'
   ])
 
@@ -14,25 +15,40 @@ function App() {
     setSkills(skills.concat(skill))
   }
 
+  function handleRemoveSkill(skill) {
+    setSkills(skills.filter(s => s !== skill))
+  }
+
+  /* Next, we pass handleRemoveSkill down as a prop, or since this is a function, as a callback function to be used within SkillList */
   return (
     <>
       <input onChange={handleChangeInput} />
       <button onClick={handleAddSkill}>Add Skill</button>
-      <SkillList skills={skills} />
+      <SkillList skills={skills} handleRemoveSkill={handleRemoveSkill} />
     </>
   );
 }
 
-/* But the problem, if you run this code yourself, is that when we type into the input, because the parent component of SkillList (App) re-renders, due to the state being updated on every keystroke, the SkillList is rerendered constantly (as indicated by the console.log) */
+/* When we try typing in the input again, we see rerendering in the console every time we type. Our memoization from React.memo is broken!
 
-/* However, once we wrap the SkillList component in React.memo (which is a higher-order function, meaning it accepts a function as an argument), it no longer re-renders unnecessarily when our parent component does. */
-const SkillList = memo(({ skills }) => {
+What is happening is the handleRemoveSkill callback function is being recreated everytime App is rerendered, causing all children to be rerendered, too. We need to wrap handleRemoveSkill in useCallback and only have it be recreated when the skill value changes.
+
+To fix our app, replace handleRemoveSkill with:
+
+const handleRemoveSkill = React.useCallback((skill) => {
+  setSkills(skills.filter(s => s !== skill))
+}, [skills])
+
+Try it yourself!
+*/
+const SkillList = React.memo(({ skills, handleRemoveSkill }) => {
   console.log('rerendering');
   return (
     <ul>
-      {skills.map((skill, i) => <li key={i}>{skill}</li>)}
+      {skills.map(skill => <li key={skill} onClick={() => handleRemoveSkill(skill)}>{skill}</li>)}
     </ul>
   )
 })
+
 
 export default App

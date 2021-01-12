@@ -12,11 +12,8 @@ export const Section2 = () => {
     setOffsetTop(ref.current.offsetTop);
   }, [ref]);
 
-  const opacityRange = useTransform(scrollY, [offsetTop + 1600, offsetTop + 1750], [1, 0]);
-  // const yRange = useTransform(scrollY, [offsetTop + 1150, offsetTop + 1400], [0, 100]);
-
+  const opacityRange = useTransform(scrollY, [offsetTop + 1600, offsetTop + 1800], [1, 0]);
   const opacity = useSpring(opacityRange, { stiffness: 200, damping: 100 });
-  // const y = useSpring(yRange, { stiffness: 200, damping: 100 });
   return (
     <>
       <Section>

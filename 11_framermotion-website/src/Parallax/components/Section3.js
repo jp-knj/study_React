@@ -1,48 +1,35 @@
-import React from 'react';
+import React, { useRef, useState, useLayoutEffect } from "react";
+import { motion, useViewportScroll, useTransform, useSpring } from "framer-motion";
 import styled from 'styled-components';
-import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
-import { motion } from 'framer-motion';
-
-const buttonIconVariants = {
-  hover: {
-    scale: 2,
-  },
-  tap: {
-    scale: 1.4,
-  },
-};
 
 export const Section3 = () => {
+  const { scrollY } = useViewportScroll();
+  const ref = useRef();
+  const [offsetTop, setOffsetTop] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!ref.current) return null;
+    setOffsetTop(ref.current.offsetTop);
+  }, [ref]);
+
+  const opacityRange = useTransform(scrollY, [offsetTop + 2100, offsetTop + 2350], [1, 0]);
+  const opacity = useSpring(opacityRange, { stiffness: 200, damping: 100 });
   return (
     <>
       <Section>
-        <Container>
+        <Container style={{ opacity }}>
           <H6>働く人々</H6>
           <H1>People</H1>
           <P>職員一人ひとりに、清新な志が求められます。<br />新時代の自治体をめざして漕ぎ出していきます。</P>
           <SliderContainer>
             <Slider>
               <ImgContainer>
-                <img src="https://d33wubrfki0l68.cloudfront.net/dd23708ebc4053551bb33e18b7174e73b6e1710b/dea24/static/images/wallpapers/shared-colors@2x.png"></img>
               </ImgContainer>
               <InfoContainer>
                 <Comment>自由で便利な生活はできるが、成長がピークに達し色々な状況を呈している社会のことである。</Comment>
-                <Name>Kenji Tomita</Name>
+                <Name></Name>
               </InfoContainer>
             </Slider>
-            <ButtonLeft
-              variants={buttonIconVariants}
-              whileHover="hover"
-              whileTap="tap">
-              <MdNavigateBefore/>
-            </ButtonLeft>
-            <ButtonRight
-              variants={buttonIconVariants}
-              whileHover="hover"
-              whileTap="tap"
-            >
-              <MdNavigateNext />
-            </ButtonRight>
           </SliderContainer>
         </Container>
       </Section>
@@ -59,7 +46,7 @@ const Section = styled.section`
   transform: translate(-105%, -50%) scale(-1);
 `;
 
-const Container = styled.div`
+const Container = styled(motion.div)`
 `
 const H1 = styled.h1`
   margin-bottom: 20px;
@@ -111,8 +98,7 @@ const ImgContainer = styled.div`
   height: 400px;
   width: 300px;
   margin: 40px 0;
-  background-color: transparent;
-  border-radius: 10px;
+  background-color: black;
   box-shadow: 5px 3px 33px -15px black;
   overflow: hidden;
 `
@@ -149,18 +135,4 @@ const Name = styled.div`
     background: black;
     opacity: 0.4;
   }
-`
-
-const ButtonLeft = styled(motion.button)`
-  position: absolute;
-  top: 50%;
-  bottom: 0;
-  left: 0;
-`
-
-const ButtonRight = styled(motion.button)`
-  position: absolute;
-  top: 50%;
-  bottom: 0;
-  right: 0;
 `

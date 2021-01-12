@@ -1,42 +1,54 @@
 import React from 'react'
 import styled from 'styled-components'
 import { AiOutlineClose } from 'react-icons/ai'
-import { AnimatePresence } from 'framer-motion'
-export const Menu = ({ menuState, setMenuState}) => {
+import { motion, AnimatePresence } from 'framer-motion'
+export const Menu = ({ menuState, setMenuState }) => {
+
   return (
     <>
       <AnimatePresence>
-      {menuState && (
-      <MenuSection>
-        <MenuHeader>
-          <MenuClose><AiOutlineClose size={ 32 }/></MenuClose>
-        </MenuHeader>
-        <Menucontainer>
-          <Menus>
-            <MenuList>
-              <MenuLink>
-                <Title>Home</Title>
-                <Img></Img>
-              </MenuLink>
-            </MenuList>
-            <MenuList>
-              <MenuLink>
-                <Title>Acitivity</Title>
-                <Img></Img>
-              </MenuLink>
-            </MenuList><MenuList>
-              <MenuLink>
-                <Title>People</Title>
-                <Img></Img>
-              </MenuLink>
-            </MenuList><MenuList>
-              <MenuLink>
-                <Title>New</Title>
-                <Img></Img>
-              </MenuLink>
-            </MenuList>
-          </Menus>
-        </Menucontainer>
+        {menuState && (
+        <MenuSection
+          initial={{ visibility: "hidden" }}
+          exit={{
+            visibility: "hidden",
+            transition: { delay: 1 },
+          }}
+          animate={{
+            visibility: "visible",
+            transition: { delay: 1 },
+          }}
+        >
+          <MenuHeader>
+              <MenuClose onClick={() => setMenuState(!menuState)}>
+                <AiOutlineClose size={32} /></MenuClose>
+          </MenuHeader>
+          <Menucontainer>
+            <Menus>
+              <MenuList>
+                <MenuLink>
+                  <Title>Home</Title>
+                  <Img></Img>
+                </MenuLink>
+              </MenuList>
+              <MenuList>
+                <MenuLink>
+                  <Title>Acitivity</Title>
+                  <Img></Img>
+                </MenuLink>
+              </MenuList><MenuList>
+                <MenuLink>
+                  <Title>People</Title>
+                  <Img></Img>
+                </MenuLink>
+              </MenuList><MenuList>
+                <MenuLink>
+                  <Title>New</Title>
+                  <Img></Img>
+                </MenuLink>
+              </MenuList>
+            </Menus>
+          </Menucontainer>
         </MenuSection>
         )}
       </AnimatePresence>
@@ -45,7 +57,7 @@ export const Menu = ({ menuState, setMenuState}) => {
 }
 export default Menu;
 
-const MenuSection = styled.div`
+const MenuSection = styled(motion.div)`
   position: fixed;
   height: 100%;
   width: 100%;
@@ -63,6 +75,7 @@ const MenuHeader = styled.div`
 const MenuClose = styled.div`
   height: 30px;
   width: 30px;
+  z-index: 2000;
 `
 
 const Menucontainer = styled.div`

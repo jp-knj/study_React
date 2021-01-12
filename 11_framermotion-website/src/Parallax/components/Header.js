@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 
-export const Header = () => {
+export const Header = ({ menuState, setMenuState}) => {
+  const hamburger = useRef(null)
   return (
     <Section>
       <HeaderContainer>
-        <Menu>
+        <Menu
+          ref={hamburger}
+          onClick={() => setMenuState(!menuState)}>
           <Button></Button>
           <Button></Button>
         </Menu>

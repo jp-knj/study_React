@@ -1,12 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
-
-export const Menu = () => {
+import { AiOutlineClose } from 'react-icons/ai'
+import { AnimatePresence } from 'framer-motion'
+export const Menu = ({ menuState, setMenuState}) => {
   return (
     <>
+      <AnimatePresence>
+      {menuState && (
       <MenuSection>
         <MenuHeader>
-          <MenuClose></MenuClose>
+          <MenuClose><AiOutlineClose size={ 32 }/></MenuClose>
         </MenuHeader>
         <Menucontainer>
           <Menus>
@@ -34,11 +37,12 @@ export const Menu = () => {
             </MenuList>
           </Menus>
         </Menucontainer>
-      </MenuSection>
+        </MenuSection>
+        )}
+      </AnimatePresence>
     </>
   )
 }
-
 export default Menu;
 
 const MenuSection = styled.div`
@@ -54,7 +58,6 @@ const MenuHeader = styled.div`
   position: absolute;
   top: 30px;
   right: 60px;
-  background-color: black;
 `
 
 const MenuClose = styled.div`

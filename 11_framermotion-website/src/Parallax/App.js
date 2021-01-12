@@ -5,14 +5,17 @@ import Section1 from "./components/Section1";
 import Section2 from "./components/Section2";
 import Section3 from "./components/Section3";
 import Section4 from "./components/Section4";
-import Footer from "./components/Footer";
 import "./styles.css";
 import { usePosition } from "./usePosition";
 import Hero from "./components/Hero";
+import Header from "./components/Header";
+import Menu from "./components/Menu";
+import Footer from "./components/Footer";
 
 export default function App() {
   const { scrollY } = useViewportScroll();
   const [scrollPosY, setscrollPosY] = useState(false);
+  const [menuState, setMenuState ] = useState(false);
 
   const rotationRange = useTransform(
     scrollY,
@@ -32,6 +35,12 @@ export default function App() {
   }, [y]);
   return (
     <>
+      <Menu
+        menuState={menuState}
+        setMenuState={setMenuState}
+      />
+      <Header menuState={menuState}
+        setMenuState={setMenuState}/>
     <Hero />
     <RotationLengthContainer ref={ref}>
       <StickyRotatingContainer style={{ rotate, x: "-50%" }}>
@@ -41,6 +50,7 @@ export default function App() {
       </StickyRotatingContainer>
     </RotationLengthContainer>
     <Section4 />
+    <Footer />
     </>
   );
 }

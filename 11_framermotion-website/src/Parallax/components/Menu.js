@@ -9,25 +9,31 @@ export const Menu = () => {
           <MenuClose></MenuClose>
         </MenuHeader>
         <Menucontainer>
-          <MenuInner>
-            <Menus>
-              <MenuList>
+          <Menus>
+            <MenuList>
+              <MenuLink>
                 <Title>Home</Title>
                 <Img></Img>
-              </MenuList>
-              <MenuList>
+              </MenuLink>
+            </MenuList>
+            <MenuList>
+              <MenuLink>
                 <Title>Acitivity</Title>
                 <Img></Img>
-              </MenuList><MenuList>
-                <Title>News</Title>
-                <Img></Img>
-              </MenuList><MenuList>
+              </MenuLink>
+            </MenuList><MenuList>
+              <MenuLink>
                 <Title>People</Title>
                 <Img></Img>
-              </MenuList>
-            </Menus>
-          </MenuInner>
-          </Menucontainer>
+              </MenuLink>
+            </MenuList><MenuList>
+              <MenuLink>
+                <Title>New</Title>
+                <Img></Img>
+              </MenuLink>
+            </MenuList>
+          </Menus>
+        </Menucontainer>
       </MenuSection>
     </>
   )
@@ -36,16 +42,65 @@ export const Menu = () => {
 export default Menu;
 
 const MenuSection = styled.div`
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 9;
+  overflow: hidden;
+  background: #fff;
 `
-const MenuHeader = styled.div``
-const MenuClose = styled.div``
-const Menucontainer = styled.div`
+const MenuHeader = styled.div`
+  z-index: 1000;
+  position: absolute;
+  top: 30px;
+  right: 60px;
+  background-color: black;
 `
-const MenuInner = styled.div`
 
+const MenuClose = styled.div`
+  height: 30px;
+  width: 30px;
 `
+
+const Menucontainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`
+
 const Menus = styled.ul`
+  height: 90%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 0;
 `
-const MenuList = styled.li``
-const Title = styled.h2``
-const Img = styled.div``
+const MenuList = styled.li`
+  position: relative;
+  color: white;
+  height : calc((100% / 4) - 2px);
+  width: 100%;
+`
+
+const MenuLink = styled.a`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  :hover {
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+  }
+`
+
+const Title = styled.h2`
+  color: black;
+  font-size: 4rem;
+  font-weight: 500;
+`
+const Img = styled.img``

@@ -32,16 +32,15 @@ export default function App() {
   }, [y]);
   return (
     <>
-      <Hero />
+    <Hero />
     <RotationLengthContainer ref={ref}>
       <StickyRotatingContainer style={{ rotate, x: "-50%" }}>
         <Section1 />
         <Section2 />
         <Section3 />
       </StickyRotatingContainer>
-      </RotationLengthContainer>
-      <Section4 />
-      <Footer />
+    </RotationLengthContainer>
+    <Section4 />
     </>
   );
 }

@@ -1,39 +1,38 @@
-import React from 'react'
-function App() {
-  const [developer, setDeveloper] = React.useState({
-    language: "",
-    yearsExperience: 0
-  });
+import React, { useState, useEffect } from 'react';
 
-  function handleChangeYearsExperience(event) {
-    const years = event.target.value;
-    /* We must pass in the previous state object we had with the spread operator to spread out all of its properties */
-    setDeveloper({ ...developer, yearsExperience: years });
+function MouseTracker() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    // .addEventListener() sets up an active listener...
+    window.addEventListener("mousemove", handleMouseMove);
+
+    /* ...So when we navigate away from this page, it needs to be
+       removed to stop listening. Otherwise, it will try to set
+       state in a component that doesn't exist (causing an error)
+
+     We unsubscribe any subscriptions / listeners w/ this 'cleanup function')
+     */
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  function handleMouseMove(event) {
+    setMousePosition({
+      x: event.pageX,
+      y: event.pageY
+    });
   }
 
   return (
     <div>
-      {/* No need to get previous state here; we are replacing the entire object */}
-      <button
-        onClick={() =>
-          setDeveloper({
-            language: "JavaScript",
-            yearsExperience: 0
-          })
-        }
-      >
-        Change language to JS
-      </button>
-      {/* We can also pass a reference to the function */}
-      <input
-        type="number"
-        value={developer.yearsExperience}
-        onChange={handleChangeYearsExperience}
-      />
-      <p>I am now learning {developer.language}</p>
-      <p>I have {developer.yearsExperience} years of experience</p>
+      <h1>The current mouse position is:</h1>
+      <p>
+        X: {mousePosition.x}, Y: {mousePosition.y}
+      </p>
     </div>
   );
 }
 
-export default App;
+export default MouseTracker;

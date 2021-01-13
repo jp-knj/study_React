@@ -2,7 +2,7 @@ import React from 'react'
 import { motion, useViewportScroll, useSpring, useTransform } from "framer-motion";
 import styled from "styled-components";
 
-export const Hero = () => {
+export const HomeHero = () => {
   const { scrollY } = useViewportScroll();
   const opacityRange = useTransform(scrollY, [30, 140], [1, 0]);
   const yRange = useTransform(scrollY, [30, 70], [0, 100]);
@@ -50,4 +50,4 @@ const ImgContainer = styled.div`
   background-color: black;
   z-index:2;
 `
-export default Hero;
+export default HomeHero;

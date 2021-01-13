@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 
-export const Section4 = () => {
+export const HomeNews = () => {
   return (
     <HeroSection>
       <Container>
@@ -42,7 +42,7 @@ const HeroSection = styled.section`
 `
 const Container = styled.div`
   margin: 0 auto;
-  width: 1000px;
+  width: 600px;
 `
 
 const H1 = styled.h1`
@@ -112,4 +112,4 @@ const NewsDate = styled.p`
   font-weight: 300;
 `
 
-export default Section4;
+export default HomeNews;

@@ -1,4 +1,4 @@
-import React, { useState }from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiOutlineClose } from 'react-icons/ai'
@@ -62,6 +62,7 @@ export const Menu = ({ menuState, setMenuState }) => {
 }
 
 const Panels = () => {
+  const [panelComplete, setPanelComplete] = useState(false);
   return (
     <>
       <LeftPanelBackground
@@ -87,6 +88,9 @@ const Panels = () => {
           bottom: [null, 0, 0],
         }}
         transition={{ ...transition, duration: 2, times: [0, 0.5, 1] }}
+        onAnimationComplete={() => {
+          setPanelComplete(panelComplete)
+        }}
       ></RightPanelBackground>
     </>
   )
@@ -161,7 +165,7 @@ const LeftPanelBackground = styled(motion.div)`
   height: 100vh;
   width: 50vw;
   position: absolute;
-  background-color: red;
+  background-color: black;
   z-index: 11;
 `
 
@@ -171,22 +175,5 @@ const RightPanelBackground = styled(motion.div)`
   position: absolute;
   right: 0;
   z-index: 11;
-  background-color: green;
+  background-color: white;
 `
-
-// style={{
-        //   background: panelComplete ? "#e7e7de" : "#e7dee7",
-        // }}
-        // initial={{ height: 0 }}
-        // animate={{
-        //   height: [0, window.innerHeight, 0],
-        //   bottom: [0, 0, window.innerHeight],
-        // }}
-        // exit={{
-        //   height: [0, window.innerHeight, 0],
-        //   bottom: [null, 0, 0],
-        // }}
-        // transition={{ ...transition, duration: 2, times: [0, 0.5, 1] }}
-        // onAnimationComplete={() => {
-        //   setPanelComplete(!panelComplete)
-        // }}

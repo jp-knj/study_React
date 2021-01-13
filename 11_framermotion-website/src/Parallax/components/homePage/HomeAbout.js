@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useRef, useState, useLayoutEffect } from "react";
 import { motion, useViewportScroll, useTransform, useSpring } from "framer-motion";
 
-export const Section1 = () => {
+export const HomeAbout = () => {
   const { scrollY } = useViewportScroll();
   const ref = useRef();
   const [offsetTop, setOffsetTop] = useState(0);
@@ -39,7 +39,7 @@ export const Section1 = () => {
   )
 }
 
-export default Section1;
+export default HomeAbout;
 
 const Section = styled.section`
   position: absolute;

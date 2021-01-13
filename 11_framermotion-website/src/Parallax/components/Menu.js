@@ -1,50 +1,51 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiOutlineClose } from 'react-icons/ai'
 import { motion, AnimatePresence } from 'framer-motion'
-export const Menu = ({ menuState, setMenuState }) => {
 
+
+export const Menu = ({ menuState, setMenuState }) => {
   return (
     <>
       <AnimatePresence>
         {menuState && (
-        <MenuSection
-          initial={{ visibility: "hidden" }}
-          exit={{
-            visibility: "hidden",
-            transition: { delay: 1 },
-          }}
-          animate={{
-            visibility: "visible",
-            transition: { delay: 1 },
-          }}
-        >
+          <MenuSection
+            initial={{ visibility: "hidden" }}
+            exit={{
+              visibility: "hidden",
+              transition: { delay: 1 },
+            }}
+            animate={{
+              visibility: "visible",
+              transition: { delay: 1 },
+            }}
+          >
           <MenuHeader>
-              <MenuClose onClick={() => setMenuState(!menuState)}>
-                <AiOutlineClose size={32} /></MenuClose>
+            <MenuClose onClick={() => setMenuState(!menuState)}>
+              <AiOutlineClose size={32} />
+            </MenuClose>
           </MenuHeader>
           <Menucontainer>
             <Menus>
+                <MenuList>
+                  <MenuLink to="/">
+                      <Title>Home</Title>
+                  </MenuLink>
+                </MenuList>
+                <MenuList>
+                  <MenuLink to="/activity">
+                    <Title>Activity</Title>
+                  </MenuLink>
+                </MenuList>
+                <MenuList>
+                  <MenuLink to="/people">
+                      <Title>People</Title>
+                  </MenuLink>
+                </MenuList>
               <MenuList>
-                <MenuLink>
-                  <Title>Home</Title>
-                  <Img></Img>
-                </MenuLink>
-              </MenuList>
-              <MenuList>
-                <MenuLink>
-                  <Title>Acitivity</Title>
-                  <Img></Img>
-                </MenuLink>
-              </MenuList><MenuList>
-                <MenuLink>
-                  <Title>People</Title>
-                  <Img></Img>
-                </MenuLink>
-              </MenuList><MenuList>
-                <MenuLink>
-                  <Title>New</Title>
-                  <Img></Img>
+                <MenuLink to="/news">
+                    <Title>News</Title>
                 </MenuLink>
               </MenuList>
             </Menus>
@@ -78,35 +79,36 @@ const MenuClose = styled.div`
   z-index: 2000;
 `
 
-const Menucontainer = styled.div`
+const Menucontainer = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
 `
 
 const Menus = styled.ul`
-  height: 90%;
+  /* height: 90%;
   width: 80%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
   margin: auto 0;
 `
 const MenuList = styled.li`
   position: relative;
   color: white;
-  height : calc((100% / 4) - 2px);
   width: 100%;
 `
 
-const MenuLink = styled.a`
+const MenuLink = styled(Link)`
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-transform: uppercase;
   :hover {
     -webkit-text-fill-color: white;
     -webkit-text-stroke-width: 1px;

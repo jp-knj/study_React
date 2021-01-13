@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 import styled from 'styled-components'
 import { AiOutlineClose } from 'react-icons/ai'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -31,22 +31,22 @@ export const Menu = ({ menuState, setMenuState }) => {
           <Menucontainer>
             <Menus>
                 <MenuList>
-                  <MenuLink to="/">
+                    <MenuLink to="/" onClick={() => setMenuState(!menuState)}>
                       <Title>Home</Title>
                   </MenuLink>
                 </MenuList>
                 <MenuList>
-                  <MenuLink to="/activity">
+                    <MenuLink to="/activity" onClick={() => setMenuState(!menuState)}>
                     <Title>Activity</Title>
                   </MenuLink>
                 </MenuList>
                 <MenuList>
-                  <MenuLink to="/people">
+                    <MenuLink to="/people" onClick={() => setMenuState(!menuState)}>
                       <Title>People</Title>
                   </MenuLink>
                 </MenuList>
               <MenuList>
-                <MenuLink to="/news">
+                    <MenuLink to="/news" onClick={() => setMenuState(!menuState)}>
                     <Title>News</Title>
                 </MenuLink>
               </MenuList>

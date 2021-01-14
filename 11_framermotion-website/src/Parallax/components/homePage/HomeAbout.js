@@ -54,6 +54,7 @@ const Container = styled.div`
 `
 
 const AboutTitle = styled(motion.div)`
+  margin-top: 30px;
 `
 
 const AboutDescription = styled(motion.div)`

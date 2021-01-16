@@ -1,9 +1,16 @@
-function App() {
-  return (
-    <div>
-      <h1> Hello World</h1>
-    </div>
-  );
-}
+import React, { Fragment } from 'react';
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset-advanced';
 
-export default App;
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+`;
+
+const App = () => (
+  <Fragment>
+    <GlobalStyle />
+    <div>Hello World</div>
+  </Fragment>
+);
+
+export default App

@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+html {
+  margin: 0 auto;
+  max-width: 1500px;
+  overflow: hidden;
+}
+
+body {
+  background-repeat: no-repeat;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  color: #00053a;
+  overscroll-behavior-y: none;
+}

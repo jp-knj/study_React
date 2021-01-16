@@ -26,7 +26,7 @@ export const Hero = () => {
 export default Hero;
 
 export const Section = styled.section`
-  height: 80vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items:center;

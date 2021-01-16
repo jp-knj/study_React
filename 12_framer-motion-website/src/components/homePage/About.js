@@ -34,7 +34,7 @@ export default About
 
 const Wrapper = styled.div`
   margin: 100px 0;
-  padding: 0 300px;
+  padding: 0 200px;
 `
 const Title = styled.h1`
   font-weight: 800;
@@ -46,9 +46,9 @@ const Title = styled.h1`
   z-index:1;
 `
 
-const Text = styled.div``
+export const Text = styled.div``
 
-const P = styled.p`
+export const P = styled.p`
   font-weight: 200;
   letter-spacing: 5px;
   mix-blend-mode: exclusion;
@@ -56,7 +56,7 @@ const P = styled.p`
   margin-bottom: 20px;
 `
 
-const Str = styled.strong`
+export const Str = styled.strong`
   background-color: #00053a;
   color: white;
   padding: 3px 5px;

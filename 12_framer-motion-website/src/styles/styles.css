@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap');
 
 html {
-  margin: 0 auto;
+  margin: 0 auto !important;
   max-width: 1500px;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 body {

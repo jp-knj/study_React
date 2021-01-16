@@ -14,9 +14,7 @@ export const About = () => {
     <>
       <Section>
         <Wrapper style={{ opacity, y }}>
-        <Title>
-          About Us
-        </Title>
+        <Title>About Us</Title>
           <Text>
             <P>精神的豊かさや生活の</P>
             <P>質の向上を重視する、平和で自由な社会へめざす。</P>

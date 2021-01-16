@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset-advanced';
+import Home from './pages/Home';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -9,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
 const App = () => (
   <Fragment>
     <GlobalStyle />
-    <div>Hello World</div>
+    <Home/>
   </Fragment>
 );
 

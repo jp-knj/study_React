@@ -46,8 +46,14 @@ const Article = styled.div`
   display: flex;
   align-items: center;
   border-bottom: 1px solid black;
+  transition: all 1s;
+
+  &:hover {
+    padding-left: 30px;
+  }
 `
 const ArticleDate = styled.div``
+
 const ArticleContent = styled.div`
   margin-left: 30px;
   padding: 15px 0;

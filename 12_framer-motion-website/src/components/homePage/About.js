@@ -3,6 +3,30 @@ import styled from 'styled-components'
 import { motion, useAnimation } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 
+const variants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.1,
+      ease: [0.6, 0.05, -0.01, 0.9]
+    },
+  },
+  hidden: { opacity: 0, y: 80 }
+};
+
+const variantsSecond = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.6, 0.05, -0.01, 0.9]
+    },
+  },
+  hidden: { opacity: 0, y: 100 }
+};
+
 export const About = () => {
   const animation = useAnimation()
   const [contentRef, inView] = useInView({
@@ -14,33 +38,22 @@ export const About = () => {
     if (inView) { animation.start("visible") }}, [animation, inView])
   return (
     <>
-      <Section>
+      <Section style={{ marginTop: '0'}}>
         <Wrapper>
           <Title
             ref={contentRef}
             animate={animation}
             initial="hidden"
-            variants={{
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.4, ease: [0.6, 0.05, -0.01, 0.9] },
-              },
-              hidden: { opacity: 0, y: 72 },
-            }}
+            variants={variants}
           >
-          About</Title>
-          <Text ref={contentRef}
+            About
+          </Title>
+          <Text
+            ref={contentRef}
             animate={animation}
             initial="hidden"
-            variants={{
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 1, ease: [0.6, 0.05, -0.01, 0.9] },
-              },
-              hidden: { opacity: 0, y: 72 },
-            }}>
+            variants={variantsSecond}
+          >
             <P>精神的豊かさや生活の</P>
             <P>質の向上を重視する、平和で自由な社会へめざす。</P>
             <P>我々は、<Str>高齢者特有の法的な保障</Str>について考える</P>
@@ -55,7 +68,11 @@ export const About = () => {
 
 export default About
 
-export const Section = styled(motion.div)`height: 80vh;`
+export const Section = styled(motion.div)`
+  height: 100%;
+  margin: 150px 0;
+`
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,7 +80,6 @@ export const Wrapper = styled.div`
   align-items: center;
   max-width: 900px;
   margin: 0 auto;
-  margin-bottom: 0;
   padding: 0 100px;
 `
 export const Title = styled(motion.h1)`

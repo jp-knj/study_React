@@ -4,6 +4,42 @@ import { motion ,useAnimation } from "framer-motion"
 import { useInView } from 'react-intersection-observer'
 import { Wrapper, Title, Text, P } from './About'
 
+const variants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.6, 0.05, -0.01, 0.9]
+    },
+  },
+  hidden: { opacity: 0, y: 80 }
+};
+
+const variantsSecond = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.2,
+      ease: [0.6, 0.05, -0.01, 0.9]
+    },
+  },
+  hidden: { opacity: 0, y: 100 }
+};
+
+const variantThird = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.8,
+      ease: [0.6, 0.05, -0.01, 0.9]
+    },
+  },
+  hidden: { opacity: 0, y: 120 }
+};
+
 export const Activity = () => {
   const animation = useAnimation()
   const [contentRef, inView] = useInView({
@@ -22,27 +58,15 @@ export const Activity = () => {
             ref={contentRef}
             animate={animation}
             initial="hidden"
-            variants={{
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: .4, ease: [0.6, 0.05, -0.01, 0.9] },
-              },
-              hidden: { opacity: 0, y: 82 },
-            }}
-          >Activity</Title>
+            variants={variants}
+          >
+            Activity
+          </Title>
           <Text
-            ef={contentRef}
+            ref={contentRef}
             animate={animation}
             initial="hidden"
-            variants={{
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: .8, ease: [0.6, 0.05, -0.01, 0.9] },
-              },
-              hidden: { opacity: 0, y: 100 },
-            }}
+            variants={variantsSecond}
           >
             <P>地域特性を最大限に活かす知恵と工夫をこらし</P>
             <P>新しく構想し、生み出していく「創造」の時代に</P>
@@ -52,14 +76,7 @@ export const Activity = () => {
             ef={contentRef}
             animate={animation}
             initial="hidden"
-            variants={{
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 1.2, ease: [0.6, 0.05, -0.01, 0.9] },
-              },
-              hidden: { opacity: 0, y: 120 },
-            }}
+            variants={variantThird}
           >
             <Card>
               <ThumbnailContainer>
@@ -88,7 +105,8 @@ export const Activity = () => {
 
 export default Activity;
 
-const Section = styled(motion.div)`
+export const Section = styled(motion.div)`
+ margin-top: 120px;
  height: 100%;
 `
 

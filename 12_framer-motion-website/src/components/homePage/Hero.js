@@ -1,5 +1,6 @@
 import React from 'react'
-import { motion, useViewportScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useViewportScroll, useSpring, useTransform } from 'framer-motion'
+
 import styled from 'styled-components'
 
 export const Hero = () => {

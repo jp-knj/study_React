@@ -45,6 +45,7 @@ const NewsList = styled.div``
 const Article = styled.div`
   display: flex;
   align-items: center;
+  border-bottom: 1px solid black;
 `
 const ArticleDate = styled.div``
 const ArticleContent = styled.div`
@@ -53,9 +54,9 @@ const ArticleContent = styled.div`
   display: flex;
 `
 const CategoryName = styled.div`
-  padding: 5px 10px;
-  border: 1px solid black;
   width: fit-content;
+  font-size: 20px;
+  font-weight: 700;
 `
 const ArticleTitle = styled.div`
  font-size: 22px;

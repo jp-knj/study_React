@@ -13,7 +13,6 @@ export const People = () => {
         </Wrapper>
         <Marquee />
       </Section>
-
     </>
   )
 }

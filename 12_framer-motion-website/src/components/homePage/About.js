@@ -1,19 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useViewportScroll, useSpring, useTransform } from "framer-motion";
 import { Section } from './Hero'
 
 export const About = () => {
-  const { scrollYProgress } = useViewportScroll()
-  const frameOpacity = useTransform(scrollYProgress, [0.196, 0.198], [0, 1])
-  const yRange = useTransform(scrollYProgress, [30, 70], [0, 100]);
-  const opacity = useSpring(frameOpacity, { stiffness: 400, damping: 100 });
-  const y = useSpring(yRange, { stiffness: 200, damping: 100 });
 
   return (
     <>
       <Section>
-        <Wrapper style={{ opacity, y }}>
+        <Wrapper>
         <Title>About Us</Title>
           <Text>
             <P>精神的豊かさや生活の</P>
@@ -30,11 +24,15 @@ export const About = () => {
 
 export default About
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 100px 0;
   padding: 0 200px;
 `
-const Title = styled.h1`
+export const Title = styled.h1`
   font-weight: 800;
   font-size: 50px;
   line-height: 70px;

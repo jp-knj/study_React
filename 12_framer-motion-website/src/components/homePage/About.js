@@ -1,14 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Section } from './Hero'
+import { motion, useAnimation } from "framer-motion"
+import { useInView } from "react-intersection-observer"
 
 export const About = () => {
+  const animation = useAnimation()
+  const [contentRef, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "-300px",
+  })
 
+  useEffect(() => {
+    if (inView) {
+      animation.start("visible")
+    }
+  }, [animation, inView])
   return (
     <>
-      <Section>
+      <Section
+        ref={contentRef}
+        animate={animation}
+        initial="hidden"
+        variants={{
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4, ease: [0.6, 0.05, -0.01, 0.9] },
+          },
+          hidden: { opacity: 0, y: 72 },
+        }}
+      >
         <Wrapper>
-        <Title>About Us</Title>
+        <Title>About</Title>
           <Text>
             <P>精神的豊かさや生活の</P>
             <P>質の向上を重視する、平和で自由な社会へめざす。</P>
@@ -24,17 +47,20 @@ export const About = () => {
 
 export default About
 
+export const Section = styled(motion.div)`height: 80vh;`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 100px 0;
-  padding: 0 200px;
+  max-width: 900px;
+  margin: 120px auto;
+  padding: 0 100px;
 `
 export const Title = styled.h1`
+  width: fit-content;
   font-weight: 800;
-  font-size: 50px;
+  font-size: 60px;
   line-height: 70px;
   color: white;
   -webkit-text-stroke: 1px black;

@@ -11,28 +11,36 @@ export const About = () => {
   })
 
   useEffect(() => {
-    if (inView) {
-      animation.start("visible")
-    }
-  }, [animation, inView])
+    if (inView) { animation.start("visible") }}, [animation, inView])
   return (
     <>
-      <Section
-        ref={contentRef}
-        animate={animation}
-        initial="hidden"
-        variants={{
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.4, ease: [0.6, 0.05, -0.01, 0.9] },
-          },
-          hidden: { opacity: 0, y: 72 },
-        }}
-      >
+      <Section>
         <Wrapper>
-        <Title>About</Title>
-          <Text>
+          <Title
+            ref={contentRef}
+            animate={animation}
+            initial="hidden"
+            variants={{
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.4, ease: [0.6, 0.05, -0.01, 0.9] },
+              },
+              hidden: { opacity: 0, y: 72 },
+            }}
+          >
+          About</Title>
+          <Text ref={contentRef}
+            animate={animation}
+            initial="hidden"
+            variants={{
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 1, ease: [0.6, 0.05, -0.01, 0.9] },
+              },
+              hidden: { opacity: 0, y: 72 },
+            }}>
             <P>精神的豊かさや生活の</P>
             <P>質の向上を重視する、平和で自由な社会へめざす。</P>
             <P>我々は、<Str>高齢者特有の法的な保障</Str>について考える</P>
@@ -54,10 +62,11 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   max-width: 900px;
-  margin: 120px auto;
+  margin: 0 auto;
+  margin-bottom: 0;
   padding: 0 100px;
 `
-export const Title = styled.h1`
+export const Title = styled(motion.h1)`
   width: fit-content;
   font-weight: 800;
   font-size: 60px;
@@ -68,7 +77,7 @@ export const Title = styled.h1`
   z-index:1;
 `
 
-export const Text = styled.div``
+export const Text = styled(motion.div)``
 
 export const P = styled.p`
   font-weight: 200;

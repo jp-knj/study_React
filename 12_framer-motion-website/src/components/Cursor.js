@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 export const Cursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [hidden, setHidden] = useState(0);
 
   useEffect(() => {
     addEventListeners();

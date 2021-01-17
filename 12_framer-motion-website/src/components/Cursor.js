@@ -3,29 +3,28 @@ import styled from 'styled-components'
 
 export const Cursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [hidden, setHidden] = useState(0);
 
-     useEffect(() => {
-           addEventListeners();
-           return () => removeEventListeners();
-       }, []);
+  useEffect(() => {
+    addEventListeners();
+    return () => removeEventListeners();
+  }, []);
 
-     const addEventListeners = () => {
-           document.addEventListener("mousemove", onMouseMove);
-       };
+  const addEventListeners = () => {
+    document.addEventListener("mousemove", onMouseMove);
+  };
 
-     const removeEventListeners = () => {
-           document.removeEventListener("mousemove", onMouseMove);
-       };
+  const removeEventListeners = () => {
+    document.removeEventListener("mousemove", onMouseMove);
+  };
 
-     const onMouseMove = (e) => {
-           setPosition({ x: e.clientX, y: e.clientY });
-       };
+  const onMouseMove = (e) => {
+    setPosition({ x: e.clientX, y: e.clientY });
+  };
+
   return (
     <>
-     <Cursors style={{
- left: `${position.x}px`,
- top: `${position.y}px`
-            }}/>
+     <Cursors style={{ left: `${position.x}px`, top: `${position.y}px`}}/>
     </>
   )
 }
@@ -42,4 +41,13 @@ const Cursors = styled.div`
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: difference;
+  transition: all 150ms ease;
+  transition-property: opacity;
+
+  &.hidden {
+    background: transparent !important;
+    width: 56px;
+    height: 56px;
+    border: 4px solid #ea281e;
+  }
 `

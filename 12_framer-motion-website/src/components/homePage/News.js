@@ -1,16 +1,82 @@
-import React from 'react'
-import styled from "styled-components";
-import { Section } from './Hero'
-import { Wrapper, Title } from './About'
+import React, { useEffect } from 'react'
+import { motion, useAnimation } from "framer-motion"
+import { useInView } from 'react-intersection-observer'
+import styled from 'styled-components'
+import { Section, Wrapper, Title } from './About'
+
+const variants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.6, 0.05, -0.01, 0.9]
+    },
+  },
+  hidden: { opacity: 0, y: 80 }
+};
+
+const variantsSecond = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.2,
+      ease: [0.6, 0.05, -0.01, 0.9]
+    },
+  },
+  hidden: { opacity: 0, y: 100 }
+};
+
+const variantsThird = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.8,
+      ease: [0.6, 0.05, -0.01, 0.9]
+    },
+  },
+  hidden: { opacity: 0, y: 120 }
+};
 
 export const News = () => {
+  const animation = useAnimation()
+  const [contentRef, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "-300px",
+  })
+
+  useEffect(() => {
+    if (inView) { animation.start("visible") }
+  }, [animation, inView])
+
   return (
     <>
       <Section>
         <Wrapper>
-          <Title>News</Title>
-          <Text>最新の情報を届けます。</Text>
-          <NewsList>
+          <Title
+            style={{ textAlign: 'right' }}
+            ref={contentRef}
+            animate={animation}
+            initial="hidden"
+            variants={variants}
+          >
+            News
+          </Title>
+          <Text
+            ref={contentRef}
+            animate={animation}
+            initial="hidden"
+            variants={variantsSecond}
+          >
+            最新の情報を届けます。</Text>
+          <NewsList
+            ref={contentRef}
+            animate={animation}
+            initial="hidden"
+            variants={variantsThird}
+          >
             <Article>
               <ArticleDate>2020.1.30</ArticleDate>
               <ArticleContent>
@@ -34,14 +100,14 @@ export const News = () => {
 
 export default News;
 
-const Text = styled.p`
+const Text = styled(motion.p)`
   font-weight: 200;
   letter-spacing: 5px;
   mix-blend-mode: exclusion;
   font-size: 20px;
   margin-bottom: 20px;
 `
-const NewsList = styled.div``
+const NewsList = styled(motion.div)``
 const Article = styled.div`
   display: flex;
   align-items: center;

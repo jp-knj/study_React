@@ -136,6 +136,7 @@ date を props から state に移します：
 
 render() メソッド内の this.props.date を this.state.date に書き換える：
 
+
 ```javascript
 
 class Clock extends React.Component {
@@ -153,8 +154,7 @@ class Clock extends React.Component {
 
 this.state の初期状態を設定するクラスコンストラクタを追加する：
 
-``````javascript
-
+```javascript
 class Clock extends React.Component {
   constructor(props) {
     super(props);
@@ -170,8 +170,8 @@ class Clock extends React.Component {
     );
   }
 }
-
 ```
+
 
 親クラスのコンストラクタへの props の渡し方に注目してください：
 
@@ -181,7 +181,9 @@ class Clock extends React.Component {
     super(props);
     this.state = {date: new Date()};
   }
+  
 ```
+
 
 クラスのコンポーネントは常に props を引数として親クラスのコンストラクタを呼び出す必要があります。
 

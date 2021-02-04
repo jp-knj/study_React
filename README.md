@@ -12,9 +12,7 @@ JSX を if 文や for ループの中で使用したり、変数に代入した�
 属性に JavaScript 式を埋め込むために中括弧を使用することもできます。
 
 ```javascript
-
 const element = <img src={user.avatarUrl}></img>;
-
 ```
 
 JSX は HTML よりも JavaScript に似ているので  
@@ -24,11 +22,9 @@ JSX では例えば、class → className となり、tabindex → tabIndex と�
 **JSX はインジェクション攻撃を防ぐ**
 
 ```javascript
-
 const title = response.potentiallyMaliciousInput;
 // This is safe:
 const element = <h1>{title}</h1>;
-
 ```
 
 レンダーの前に全てが文字列に変換されます。  
@@ -57,11 +53,9 @@ Components は JavaScript の関数と似ています。（“props” と呼ば
 コンポーネントを定義するシンプルな方法は JavaScript の関数を書くこと：
 
 ```javascript
-
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
-
 ```
 
 この関数は、Data を保有する “props”（Property の省略形）というオブジェクトを引数としてひとつ受け取り  
@@ -70,13 +64,11 @@ React 要素を返すので、有効な React Component。 JavaScript の関数�
 コンポーネントを定義するために クラスも使用できます：
 
 ```javascript
-
 class Welcome extends React.Component {
-    render() {
-        return <h1>Hello, {this.props.name}</h1>;
-    }
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
 }
-
 ```
 
 **_ユーザ定義(自家製)のコンポーネントの名前は大文字で始めること_**
@@ -91,20 +83,18 @@ JSX 内で利用する前に大文字から始まる変数に代入しておき�
 例えば、以下のコードは悪い例になる。
 
 ```javascript
-
-import React from 'react';
+import React from "react";
 
 // 間違った例。これはコンポーネントなので、大文字ではじめなければいけません。
 function hello(props) {
-// 正しい例。div は HTML タグなので、<div> と書くのは正解です。
+  // 正しい例。div は HTML タグなので、<div> と書くのは正解です。
   return <div>Hello {props.toWhat}</div>;
 }
 
 function HelloWorld() {
-// 間違った例。大文字ではじまっていないため、React は <hello /> を HTML タグと認識してしまいます。
+  // 間違った例。大文字ではじまっていないため、React は <hello /> を HTML タグと認識してしまいます。
   return <hello toWhat="World" />;
 }
-
 ```
 
 #### React コンポーネントにおける state とライフサイクルについて
@@ -118,7 +108,6 @@ render() 内の props を this.props に書き換える。
 空になった関数の宣言部分を削除する。
 
 ```javascript
-
 class Clock extends React.Component {
   render() {
     return (
@@ -129,16 +118,13 @@ class Clock extends React.Component {
     );
   }
 }
-
 ```
 
 date を props から state に移します：
 
 render() メソッド内の this.props.date を this.state.date に書き換える：
 
-
 ```javascript
-
 class Clock extends React.Component {
   render() {
     return (
@@ -149,7 +135,6 @@ class Clock extends React.Component {
     );
   }
 }
-
 ```
 
 this.state の初期状態を設定するクラスコンストラクタを追加する：
@@ -158,7 +143,7 @@ this.state の初期状態を設定するクラスコンストラクタを追加
 class Clock extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = { date: new Date() };
   }
 
   render() {
@@ -171,7 +156,6 @@ class Clock extends React.Component {
   }
 }
 ```
-
 
 親クラスのコンストラクタへの props の渡し方に注目してください：
 
@@ -181,68 +165,24 @@ class Clock extends React.Component {
     super(props);
     this.state = {date: new Date()};
   }
-  
-```
 
+```
 
 クラスのコンポーネントは常に props を引数として親クラスのコンストラクタを呼び出す必要があります。
 
 <Clock /> 要素から date プロパティを削除する：
 
 ```javascript
-ReactDOM.render(
-  <Clock />,
-  document.getElementById('root')
-);
-
+ReactDOM.render(<Clock />, document.getElementById("root"));
 ```
 
 以下のようになります：
 
 ```javascript
-
-  class Clock extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {date: new Date()};
-    }
-
-    render() {
-      return (
-        <div>
-          <h1>Hello, world!</h1>
-          <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-        </div>
-      );
-    }
-  }
-
-  ReactDOM.render(
-    <Clock />,
-    document.getElementById('root')
-  );
-  
-```
-
-#### クラスにライフサイクルメソッドを追加する  
-
-多くのコンポーネントを有するアプリケーションでは、コンポーネントが破棄された場合にそのコンポーネントが占有していたリソースを解放することがとても重要です。  
-タイマーを設定したいのは、最初に Clock が DOM として描画されるときです。このことを React では “マウント (mounting)” と呼びます。  
-またタイマーをクリアしたいのは、Clock が生成した DOM が削除されるときです。このことを React では “アンマウント (unmounting)” と呼びます。  
-コンポーネントクラスで特別なメソッドを宣言することで、コンポーネントがマウントしたりアンマウントしたりした際にコードを実行することができます：
-
-```javascript
-
- class Clock extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {date: new Date()};
-    }
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
   }
 
   render() {
@@ -255,6 +195,36 @@ ReactDOM.render(
   }
 }
 
+ReactDOM.render(<Clock />, document.getElementById("root"));
+```
+
+#### クラスにライフサイクルメソッドを追加する
+
+多くのコンポーネントを有するアプリケーションでは、コンポーネントが破棄された場合にそのコンポーネントが占有していたリソースを解放することがとても重要です。  
+タイマーを設定したいのは、最初に Clock が DOM として描画されるときです。このことを React では “マウント (mounting)” と呼びます。  
+またタイマーをクリアしたいのは、Clock が生成した DOM が削除されるときです。このことを React では “アンマウント (unmounting)” と呼びます。  
+コンポーネントクラスで特別なメソッドを宣言することで、コンポーネントがマウントしたりアンマウントしたりした際にコードを実行することができます：
+
+```javascript
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
+
+  componentDidMount() {}
+
+  componentWillUnmount() {}
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
 ```
 
 これらのメソッドは “ライフサイクルメソッド (lifecycle method)” と呼ばれます。
@@ -274,15 +244,16 @@ componentDidMount() {
 
 タイマー ID を直接 this 上に（this.timerID として）格納したことに注目してください。  
 this.props は React 自体によって設定され、また this.state は特別な意味を持っていますが、
-何かデータフローに影響しないデータ（タイマー ID のようなもの）を保存したい場合に、追加のフィールドを手動でクラスに追加することは自由です。  
+何かデータフローに影響しないデータ（タイマー ID のようなもの）を保存したい場合に、追加のフィールドを手動でクラスに追加することは自由です。
 
 タイマーの後片付けは componentWillUnmount() というライフサイクルメソッドで行います：
+
 ```javascript
 
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
- 
+
 ```
 
 最後に、Clock コンポーネントが毎秒ごとに実行する tick() メソッドを実装します。
@@ -290,27 +261,23 @@ this.props は React 自体によって設定され、また this.state は特�
 コンポーネントのローカル state の更新をスケジュールするために this.setState() を使用します：
 
 ```javascript
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
 
-  class Clock extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {date: new Date()};
-    }
+  componentDidMount() {
+    this.timerID = setInterval(() => this.tick(), 1000);
+  }
 
-    componentDidMount() {
-     this.timerID = setInterval(
-      () => this.tick(),
-      1000
-     );
-    }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
 
-    componentWillUnmount() {
-      clearInterval(this.timerID);
-    }
-
-    tick() {
-      this.setState({
-      date: new Date()
+  tick() {
+    this.setState({
+      date: new Date(),
     });
   }
 
@@ -324,11 +291,10 @@ this.props は React 自体によって設定され、また this.state は特�
   }
 }
 
-ReactDOM.render( <Clock />, document.getElementById('root'));
-
+ReactDOM.render(<Clock />, document.getElementById("root"));
 ```
 
-これで、この時計は毎秒ごとに時間を刻みます。  
+これで、この時計は毎秒ごとに時間を刻みます。
 
 何が起こったのかをメソッドが呼び出される順序にそって簡単に振り返ってみましょう：
 
@@ -346,19 +312,15 @@ state を直接変更しないこと
 例えば、以下のコードではコンポーネントは再レンダーされません：
 
 ```javascript
-
 // Wrong
-this.state.comment = 'Hello';
-
+this.state.comment = "Hello";
 ```
 
 代わりに setState() を使用してください：
 
 ```javascript
-
 // Correct
-  this.setState({comment: 'Hello'});
-
+this.setState({ comment: "Hello" });
 ```
 
 this.state に直接代入してよい唯一の場所はコンストラクタです。
@@ -371,36 +333,30 @@ this.props と this.state は非同期に更新されるため、次の state �
 例えば、以下のコードはカウンターの更新に失敗することがあります：
 
 ```javascript
-
 // Wrong
 this.setState({
   counter: this.state.counter + this.props.increment,
 });
-
 ```
 
 これを修正するために、オブジェクトではなく関数を受け取る setState() の 2 つ目の形を使用します。その関数は前の state を最初の引数として受け取り、更新が適用される時点での props を第 2 引数として受け取ります：
 
 ```javascript
-
 // Correct
 this.setState((state, props) => ({
-  counter: state.counter + props.increment
+  counter: state.counter + props.increment,
 }));
-
 ```
 
 上記のコードではアロー関数を使いましたが、通常の関数でも動作します：
 
 ```javascript
-
-  // Correct
-  this.setState(function(state, props) {
-    return {
-      counter: state.counter + props.increment
-    };
-  });
-
+// Correct
+this.setState(function (state, props) {
+  return {
+    counter: state.counter + props.increment,
+  };
+});
 ```
 
 state の更新はマージされる
@@ -417,7 +373,7 @@ setState() を呼び出した場合、React は与えられたオブジェクト
       comments: []
     };
   }
-  
+
 ```
 
 その場合、別々の setState() 呼び出しで、それらの変数を独立して更新することができます：
@@ -440,3 +396,136 @@ setState() を呼び出した場合、React は与えられたオブジェクト
 ```
 
 マージは浅く (shallow) 行われるので、this.setState({comments}) は this.state.posts をそのまま残しますが、this.state.comments を完全に置き換えます。
+
+#### イベント処理
+
+React.js でのイベント処理は DOM 要素のイベント処理と共通点がある。
+
+ですが、文法的な違いもあります：
+
+React.js のイベント処理は小文字ではなく キャメルケース(camelCase) で命名規則があります。  
+JSX ではイベントハンドラとして文字列(text)ではなく関数(function)を渡します。
+
+例えば：
+こちらは HTML:
+
+```html
+<button onclick="activateLasers()">Activate Lasers</button>
+```
+
+こちらは React.js：
+
+```javascript
+<button onClick={activateLasers}>Activate Lasers</button>
+```
+
+React.js では false を返してもデフォルトの動作を抑止することができません。  
+明示的に preventDefault を呼び出す必要があります。例えば、HTML では、「新しいページを開く」というリンクのデフォルト動作を  
+抑止するために次のように書くことができます。
+
+こちらは HTML:
+
+```html
+<a href="#" onclick="console.log('The link was clicked.'); return false">
+  Click me
+</a>
+```
+
+こちらは React.js：
+
+```javascript
+function ActionLink() {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log("The link was clicked.");
+  }
+  return (
+    <a href="#" onClick="{handleClick}">
+      {" "}
+      Click me{" "}
+    </a>
+  );
+}
+```
+
+ここで、e は合成 (synthetic) イベントです。  
+React.js のイベントはネイティブのイベントと全く同様に動作するわけではない。
+
+React.js を使う場合、一般的には DOM 要素の生成後に  
+addEventListener を呼び出してリスナを追加する必要はない。  
+代わりに、要素が最初にレンダーされる際にリスナ-を指定する。
+
+コンポーネントを クラスを使用して定義した場合  
+一般的なパターンではイベントハンドラはクラスのメソッドになる。  
+例えば、以下の Toggle コンポーネントはユーザが “ON” 状態 “OFF”状態を切り替えられるようなボタンをレンダーする。
+
+```javascript
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    // This binding is necessary to make `this` work in the callback
+    this.state = { isToggleOn: true };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState((state) => ({ isToggleOn: !state.isToggleOn }));
+  }
+  render() {
+    return;
+    <button onClick="{this.handleClick}">
+      {this.state.isToggleOn ? "ON" : "OFF"}
+    </button>;
+  }
+}
+ReactDOM.render(<Toggle />, document.getElementById("root"));
+```
+
+JSX の CallBack における this に注意しなければなりません。  
+JavaScript では、クラスのメソッドはデフォルトではバインドされません。
+this.handleClick へのバインドを忘れて onClick に渡した場合、  
+実際に関数が呼ばれた時に this は undefined となってしまいます。
+
+これは React.js に限った動作ではなく、
+
+JavaScript における関数の仕組みの一部です。  
+一般的に、onClick={this.handleClick} のように () を末尾に付けずに  
+何らかのメソッドを参照する場合、そのメソッドはバインドしておく必要があります。
+
+bind の呼び出しが苦痛なら、それを回避する方法が 2 つあります。
+
+パブリッククラスフィールド構文を使用しているなら、
+コールバックを正しくバインドするのにクラスフィールドを利用できます：
+
+```javascript
+class LoggingButton extends React.Component {
+  // This syntax ensures `this` is bound within handleClick.
+  // Warning: this is _experimental_ syntax.
+  handleClick = () => {
+    console.log("this is:", this);
+  };
+
+  render() {
+    return <button onClick={this.handleClick}>Click me</button>;
+  }
+}
+```
+
+この構文は、Create React App ではデフォルトで有効です。
+クラスフィールド構文を使用していない場合、コールバック内でアロー関数を使用することもできます：
+
+```javascript
+class LoggingButton extends React.Component {
+  handleClick() {
+    console.log("this is:", this);
+  }
+
+  render() {
+    // This syntax ensures `this` is bound within handleClick
+    return <button onClick={() => this.handleClick()}>Click me</button>;
+  }
+}
+```
+
+この構文での問題は、LoggingButton がレンダーされるたびに異なるコールバック関数が毎回作成されるということです。  
+大抵のケースではこれは問題ありません。しかし、このコールバックが props の一部として下層のコンポーネントに渡される場合、  
+それら下層コンポーネントが余分に再描画されることになります。 一般的にはコンストラクタでバインドするかクラスフィールド構文を使用して、この種のパフォーマンスの問題を避けるようおすすめします。

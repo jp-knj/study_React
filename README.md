@@ -311,3 +311,94 @@ document.getElementById('root')
 Clock の出力が DOM に挿入されると、React は componentDidMount() ライフサイクルメソッドを呼び出します。その中で、Clock コンポーネントは毎秒ごとにコンポーネントの tick() メソッドを呼び出すためにタイマーを設定するようブラウザに要求します。
 ブラウザは、毎秒ごとに tick() メソッドを呼び出します。その中で Clock コンポーネントは、現在時刻を含んだオブジェクトを引数として setState() を呼び出すことで、UI の更新をスケジュールします。setState() が呼び出されたおかげで、React は state が変わったということが分かるので、render() メソッドを再度呼び出して、画面上に何を表示すべきかを知ります。今回は、render() メソッド内の this.state.date が異なっているので、レンダーされる出力には新しく更新された時間が含まれています。それに従って React は DOM を更新します。
 この後に Clock コンポーネントが DOM から削除されることがあれば、React は componentWillUnmount() ライフサイクルメソッドを呼び出し、これによりタイマーが停止します。
+
+#### state を正しく使用する
+
+setState() について知っておくべきことが 3 つあります。
+
+state を直接変更しないこと
+例えば、以下のコードではコンポーネントは再レンダーされません：
+
+```
+// Wrong
+this.state.comment = 'Hello';
+```
+
+代わりに setState() を使用してください：
+
+```
+// Correct
+this.setState({comment: 'Hello'});
+```
+
+this.state に直接代入してよい唯一の場所はコンストラクタです。
+
+state の更新は非同期に行われる可能性がある
+React はパフォーマンスのために、複数の setState() 呼び出しを 1 度の更新にまとめて処理することがあります。
+
+this.props と this.state は非同期に更新されるため、次の state を求める際に、それらの値に依存するべきではありません。
+
+例えば、以下のコードはカウンターの更新に失敗することがあります：
+
+```
+// Wrong
+this.setState({
+counter: this.state.counter + this.props.increment,
+});
+```
+
+これを修正するために、オブジェクトではなく関数を受け取る setState() の 2 つ目の形を使用します。その関数は前の state を最初の引数として受け取り、更新が適用される時点での props を第 2 引数として受け取ります：
+
+```
+// Correct
+this.setState((state, props) => ({
+counter: state.counter + props.increment
+}));
+```
+
+上記のコードではアロー関数を使いましたが、通常の関数でも動作します：
+
+```
+// Correct
+this.setState(function(state, props) {
+return {
+counter: state.counter + props.increment
+};
+});
+```
+
+state の更新はマージされる
+setState() を呼び出した場合、React は与えられたオブジェクトを現在の state にマージします。
+
+例えば、あなたの state はいくつかの独立した変数を含んでいるかもしれません：
+
+```
+constructor(props) {
+super(props);
+this.state = {
+posts: [],
+comments: []
+};
+}
+```
+
+その場合、別々の setState() 呼び出しで、それらの変数を独立して更新することができます：
+
+```
+componentDidMount() {
+fetchPosts().then(response => {
+this.setState({
+posts: response.posts
+});
+});
+
+    fetchComments().then(response => {
+      this.setState({
+        comments: response.comments
+      });
+    });
+
+}
+```
+
+マージは浅く (shallow) 行われるので、this.setState({comments}) は this.state.posts をそのまま残しますが、this.state.comments を完全に置き換えます。

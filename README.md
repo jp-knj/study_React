@@ -1606,3 +1606,135 @@ React はそれらの UI がどのような見た目になるかを学びます�
 `React DOM` は沸騰したかどうかの判定結果と入力コンポーネントの値によって、`DOM` を更新します。  
 変更された入力コンポーネントは現在の値によって、もう一方の入力コンポーネントは変換された温度によって更新されます。  
 全ての更新は同じ手順で実行されるので、2 つの入力コンポーネントは常に同期を保つことができます。
+
+## コンポジション vs 継承
+
+React は**強力なコンポジションモデル**を備えており  
+コンポーネント間の`コードの再利用`には継承よりも**コンポジション**をお勧めしています。
+
+**コンポジション**によりその問題がどのように解決できるのかについて考えてみます。
+
+### 子要素の出力 (Containment)
+
+コンポーネントの中には事前には子要素を知らないものもあります。  
+これは `Sidebar` や `Dialog` のような汎用的な “入れ物” をあらわす`コンポーネント`ではよく使われています。
+
+コンポーネントでは特別な `children` という `props` を使い
+受け取った子要素を出力することができます。
+
+```javascript
+function FancyBorder(props) {
+  return (
+    <div className={"FancyBorder FancyBorder-" + props.color}>
+      {props.children}
+    </div>
+  );
+}
+```
+
+他のコンポーネントから `JSX` をネストすることで`任意の子要素`を渡すことができます。
+
+```javascript
+function WelcomeDialog() {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">Welcome</h1>
+      <p className="Dialog-message">Thank you for visiting our spacecraft!</p>
+    </FancyBorder>
+  );
+}
+```
+
+<FancyBorder> JSX タグの内側のあらゆる要素は `FancyBorder` に `children` という `props` として渡されます。  
+`FancyBorder` は <div> の内側に `{props.children}` をレンダーするので、渡された要素が出力されます。
+
+複数の箇所に子要素を追加したいケースも考えられます。
+`children` の `props` の代わりに独自の `props` を作成して渡すことができます。
+
+```javascript
+function SplitPane(props) {
+  return (
+    <div className="SplitPane">
+      <div className="SplitPane-left">{props.left}</div>
+      <div className="SplitPane-right">{props.right}</div>
+    </div>
+  );
+}
+
+function App() {
+  return <SplitPane left={<Contacts />} right={<Chat />} />;
+}
+```
+
+**`<Contacts />`** や **`<Chat />`** のような React の要素はただのオブジェクトなので、  
+他のあらゆるデータと同様に `props` として渡すことができます。  
+このアプローチは他のライブラリで言うところの `slot` に似ていると感じるかもしれませんが、  
+React のコンポーネントに `props` として渡せるものに制限はありません。
+
+## 特化したコンポーネント (Specialization)
+
+コンポーネントを他のコンポーネントの **“特別なケース”** として考えることがあります。  
+例えば、`WelcomeDialog` は `Dialog` の特別なケースと言えるでしょう。
+
+**React ではこれもコンポジションで実現できます。**  
+汎用的なコンポーネントに `props` を渡して設定することで、より特化したコンポーネントを作成することができます。
+
+```javascript
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">{props.title}</h1>
+      <p className="Dialog-message">{props.message}</p>
+    </FancyBorder>
+  );
+}
+
+function WelcomeDialog() {
+  return (
+    <Dialog title="Welcome" message="Thank you for visiting our spacecraft!" />
+  );
+}
+```
+
+**コンポジションはクラスとして定義されたコンポーネントは同様に動作します。**
+
+```javascript
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">{props.title}</h1>
+      <p className="Dialog-message">{props.message}</p>
+      {props.children}
+    </FancyBorder>
+  );
+}
+
+class SignUpDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+    this.state = { login: "" };
+  }
+
+  render() {
+    return (
+      <Dialog
+        title="Mars Exploration Program"
+        message="How should we refer to you?"
+      >
+        <input value={this.state.login} onChange={this.handleChange} />
+        <button onClick={this.handleSignUp}>Sign Me Up!</button>
+      </Dialog>
+    );
+  }
+
+  handleChange(e) {
+    this.setState({ login: e.target.value });
+  }
+
+  handleSignUp() {
+    alert(`Welcome aboard, ${this.state.login}!`);
+  }
+}
+```

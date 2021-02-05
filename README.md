@@ -1009,3 +1009,255 @@ function NumberList(props) {
 よりすっきりしたコードとなりますが、この記法は乱用されることもあります。  
 JavaScript でそうであるように、読みやすさのために変数を抽出する価値があるかどうか決めるのはあなたです。  
 `map()` の中身がネストされすぎている場合は、コンポーネントに抽出する良いタイミングかもしれない、ということにも留意してください。
+
+## フォーム
+
+自然な HTML のフォーム要素は何らかの状態を持っているので  
+フォーム要素は React において他の DOM 要素とちょっと異なる動作をします。
+
+例、HTML によるフォームは 名前(name)を受け付けます：
+
+```html
+<form>
+  <label>
+    Name:
+    <input type="text" name="name" />
+  </label>
+  <input type="submit" value="Submit" />
+</form>
+```
+
+このフォームは、ユーザがフォームを送信した際に新しいページに移動する、という、動作を行います。
+フォームの送信に応答してユーザがフォームに入力したデータにアクセスするような `JavaScript 関数`があった方が便利です。
+**“制御された (controlled) コンポーネント”**と呼ばれるテクニックを使うことです。
+
+### 制御されたコンポーネントとは?
+
+HTML では <input>、<textarea>、そして <select> のようなフォーム要素は  
+状態を保持しており、ユーザの入力に基づいてそれを更新します。  
+React では、変更されうる状態はコンポーネントの `state プロパティ`に保持され、`setState() 関数`でのみ更新されます。
+
+React の state を **“信頼できる唯一の情報源 (single source of truth)”** とすることで、2 つの状態を結合させることができます。  
+フォームをレンダーしている React コンポーネントが、後のユーザ入力でフォームで起きることも制御できるようになります。
+
+このような方法で React によって値が制御される入力フォーム要素は **制御されたコンポーネント**と呼ばれます。
+
+例 前述のフォームの例において、  
+フォーム送信時に名前をログに残すようにしたい場合、フォームを制御されたコンポーネントとして書くことができます：
+
+```javascript
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "" };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert("A name was submitted: " + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+フォーム要素の `value 属性`が設定されているので、  
+表示される値は常に `this.state.value` となり、React の state が信頼できる情報源となります。  
+handleChange はキーストロークごとに実行されて React の state を更新するので、表示される値はユーザがタイプするたびに更新されます。
+
+制御されたコンポーネントを使うと、ユーザ入力の値は常に React の state によって制御されるようになります。  
+これによりタイプするコード量は少し増えますが、その値を他の UI 要素に渡したり、他のイベントハンドラからリセットしたりできるようになります。
+
+**textarea タグ**
+HTML では、<textarea> 要素はテキストを子要素として定義します。
+
+```html
+<textarea>
+  Hello there, this is some text in a text area
+</textarea>
+```
+
+React では、<textarea> は代わりに value 属性を使用します。
+
+こうすることで、<textarea> を使用するフォームは単一行の入力フォームと非常に似た書き方ができるようになります：
+
+```javascript
+class EssayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "Please write an essay about your favorite DOM element.",
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert("An essay was submitted: " + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Essay:
+          <textarea value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+`this.state.value` がコンストラクタで初期化されているので  
+テキストエリアには始めからテキストが入っていることに注意してください。
+
+**select タグ**
+
+HTML では、<select> はドロップダウンリストを作成します。例えばこの HTML は味についてのドロップダウンリストを作成しています：
+
+```html
+<select>
+  <option value="grapefruit">Grapefruit</option>
+  <option value="lime">Lime</option>
+  <option selected value="coconut">Coconut</option>
+  <option value="mango">Mango</option>
+</select>
+```
+
+`selected 属性`があるため `Coconut オプション`が最初に選択されていることに注意してください。  
+この selected 属性の代わりに React は `value 属性`を親の `select タグ`で使用します。  
+一箇所で更新すればよいだけなので、こちらがより便利です。
+
+例：
+
+```javascript
+class FlavorForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "coconut" };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert("Your favorite flavor is: " + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Pick your favorite flavor:
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">Grapefruit</option>
+            <option value="lime">Lime</option>
+            <option value="coconut">Coconut</option>
+            <option value="mango">Mango</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+全体的に見て <input type="text">、<textarea>、そして <select> が非常に似た動作をするようになっています。
+これらはすべて、制御されたコンポーネントを実装する時に使うことができる `value 属性`を受け取ります。
+
+`value 属性`に配列を渡すことで、select タグ内の複数のオプションを選択することができます：
+
+```html
+<select multiple={true} value={['B', 'C']}> file input タグ HTML では、<input
+  type="file"
+/>
+```
+
+デバイス内のファイルを選ばせて、それをサーバにアップロードしたり  
+File API を使って JavaScript で操作したりすることができます。
+
+<input type="file" />
+
+この値は読み取り専用ですので、これは非制御コンポーネントになります。  
+このドキュメントの後の方で、他の非制御コンポーネントと併せて説明しています。  
+複数の入力の処理 複数の制御された input 要素を処理する必要がある場合  
+それぞれの入力要素に name 属性を追加すれば、ハンドラ関数に `event.target.name`  
+に基づいて処理を選択させるようにできます。
+
+例：
+
+```javascript
+class Reservation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isGoing: true, numberOfGuests: 2 };
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    this.setState({ [name]: value });
+  }
+  render() {
+    return (
+      <form>
+        <label>
+          Is going:
+          <input
+            name="isGoing"
+            type="checkbox"
+            checked="{this.state.isGoing}"
+            onChange="{this.handleInputChange}"
+          />
+        </label>
+        <br />
+        <label>
+          Number of guests:
+          <input
+            name="numberOfGuests"
+            type="number"
+            value="{this.state.numberOfGuests}"
+            onChange="{this.handleInputChange}"
+          />
+        </label>
+      </form>
+    );
+  }
+}
+```

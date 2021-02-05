@@ -760,3 +760,252 @@ ReactDOM.render(<Page />, document.getElementById("root"));
 
 コンポーネントの render メソッドから null を返してもコンポーネントのライフサイクルメソッドの発火には影響しません。  
 例えば componentDidMount は変わらず呼び出されます。
+
+#### リスト(List)とキー(Key)
+
+JavaScript でリストを変換する方法についておさらいしましょう。
+
+`map() 関数`を使用し、`配列 numbers` というを受け取って中身の値を `2 倍`しています。  
+`map() 関数`が返す新しい配列を`変数 doubled` に格納し、ログに出力します：
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((number) => number \* 2);
+console.log(doubled);
+```
+
+このコードはコンソールに [2, 4, 6, 8, 10] と出力します。　　
+React では配列を要素のリストに変換することが、同じである。
+
+複数のコンポーネントをレンダーする要素の集合を作成し`中括弧 {}` で囲むことで
+JSX に含めることができます。
+JavaScript の `map() 関数`を利用して、`配列 numbers` に対して反復処理を行っています。
+それぞれの整数に対して <li> 要素を返しています。
+
+結果として得られる要素の配列を `listItems` に格納しています：
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) => <li>{number}</li>);
+```
+
+listItems という配列全体を <ul> 要素の内側に含め、それを DOM へレンダーします：
+
+```javascript
+ReactDOM.render(<ul>{listItems}</ul>, document.getElementById("root"));
+```
+
+このコードは、1 から 5 までの数字の箇条書きのリストを表示します。
+
+**基本的なリストコンポーネント**
+リストは何らかのコンポーネントの内部でレンダーしたいと思うでしょう。
+リファクタリングして、`配列 numbers` を受け取って要素のリストを出力するコンポーネントを作ることができます。
+
+```javascript
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => <li>{number}</li>);
+  return <ul>{listItems}</ul>;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById("root")
+);
+```
+
+リスト項目には key を与えるべきだということを受け取るでしょう。  
+`key` とは特別な文字列の属性であり、要素のリストを作成する際に含めておく必要があるものです。
+
+なぜ key が重要なのか、次の節で説明します。
+`numbers.map()` 内のリスト項目に `key` を割り当てて、`key` が見つからないという問題を修正しましょう。
+
+```javascript
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => (
+    <li key={number.toString()}>{number}</li>
+  ));
+  return <ul>{listItems}</ul>;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById("root")
+);
+```
+
+**Key**
+Key は、どの要素が変更、追加や削除されたのかを React が判断するのに使用する。  
+配列内の項目に安定した識別性を与えるため、それぞれの項目に key を与えるべきです。
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) => (
+  <li key={number.toString()}>{number}</li>
+));
+```
+
+兄弟間でその項目を一意に特定できるような文字列を key として選ぶのが最良の方法です。  
+多くの場合、あなたのデータ内にある ID を key として使うことになるでしょう:
+
+```javascript
+const todoItems = todos.map((todo) => <li key={todo.id}>{todo.text}</li>);
+```
+
+レンダーされる要素に安定した ID がない場合、最終手段として項目のインデックスを使うことができます：
+
+```javascript
+const todoItems = todos.map((todo, index) => (
+  // Only do this if items have no stable IDs
+
+  <li key={index}>{todo.text}</li>
+));
+```
+
+要素の並び順が変更される可能性がある場合、インデックスを key として使用することはお勧めしません。  
+パフォーマンスに悪い影響を与え、コンポーネントの状態に問題を起こす可能性があります。
+
+**key のあるコンポーネントの抽出**
+
+key が意味を持つのは、それをとり囲んでいる配列の側の文脈です。
+
+例えば、ListItem コンポーネントを抽出する際には、  
+key は ListItem 自体の <li> 要素に書くのではなく、配列内の <ListItem /> 要素に残しておくべきです。
+
+例： 不適切な key の使用法
+
+```javascript
+function ListItem(props) {
+  const value = props.value;
+  return (
+    // Wrong! There is no need to specify the key here:
+
+    <li key={value.toString()}>{value}</li>
+  );
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => (
+    // Wrong! The key should have been specified here:
+    <ListItem value={number} />
+  ));
+  return <ul>{listItems}</ul>;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById("root")
+);
+```
+
+**適切な key の使用法**
+
+```javascript
+function ListItem(props) {
+  // Correct! There is no need to specify the key here:
+  return <li>{props.value}</li>;
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => (
+    // Correct! Key should be specified inside the array.
+    <ListItem key={number.toString()} value={number} />
+  ));
+  return <ul>{listItems}</ul>;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById("root")
+);
+```
+
+`map()` 呼び出しの中に現れる要素に key が必要です。
+
+key は兄弟要素の中で一意であればよい
+配列内で使われる key はその兄弟要素の中で一意である必要があります。
+
+しかしグローバルに一意である必要はありません。2 つの異なる配列を作る場合は、同一の key が使われても構いません：
+
+```javascript
+function Blog(props) {
+  const sidebar = (
+    <ul>
+      {props.posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+  const content = props.posts.map((post) => (
+    <div key={post.id}>
+      <h3>{post.title}</h3>
+      <p>{post.content}</p>
+    </div>
+  ));
+  return (
+    <div>
+      {sidebar}
+      <hr />
+      {content}
+    </div>
+  );
+}
+
+const posts = [
+  { id: 1, title: "Hello World", content: "Welcome to learning React!" },
+  { id: 2, title: "Installation", content: "You can install React from npm." },
+];
+ReactDOM.render(<Blog posts={posts} />, document.getElementById("root"));
+```
+
+key は React へのヒントとして使われますが、
+あなたが書くコンポーネントには渡されません。
+
+同じ値をコンポーネントの中でも必要としている場合は、別の名前の prop として明示的に渡してください：
+
+```javascript
+const content = posts.map((post) => (
+  <Post key={post.id} id={post.id} title={post.title} />
+));
+```
+
+`Post コンポーネント`は `props.id` を読み取ることができますが、`props.key` は読み取れません。
+
+`map()` を JSX に埋め込む
+listItems 変数を他に宣言して、それを JSX に含めました：
+
+```javascript
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => (
+    <ListItem key={number.toString()} value={number} />
+  ));
+  return <ul>{listItems}</ul>;
+}
+```
+
+JSX では任意の式を埋め込むことができますので、map() の結果をインライン化することもできます。
+
+```javascript
+function NumberList(props) {
+  const numbers = props.numbers;
+  return (
+    <ul>
+      {numbers.map((number) => (
+        <ListItem key={number.toString()} value={number} />
+      ))}
+    </ul>
+  );
+}
+```
+
+よりすっきりしたコードとなりますが、この記法は乱用されることもあります。  
+JavaScript でそうであるように、読みやすさのために変数を抽出する価値があるかどうか決めるのはあなたです。  
+`map()` の中身がネストされすぎている場合は、コンポーネントに抽出する良いタイミングかもしれない、ということにも留意してください。

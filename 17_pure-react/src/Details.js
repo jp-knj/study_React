@@ -50,7 +50,7 @@ class Details extends React.Component {
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} — ${breed} — ${location}`}</h2>
-          {/* // replace button */}
+          {/* replace button */}
           <ThemeContext.Consumer>
             {([theme]) => (
               <button

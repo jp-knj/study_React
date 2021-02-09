@@ -73,3 +73,21 @@ Unit tests
 - 複数のユニットと一緒に
 End-to-end-Tests
 - ユーザとのインタラクティぶなやーつ
+
+### data-test attribute
+to be more specific by using data-test attribute 
+- data-test attribute to test rendering
+  - top level element of componet
+
+- Not just any component rendered!
+ idとclassは本番アプリで使われるもの、つまり変更されるかもしれない。
+ でもデータ属性はテストだけのもの。
+
+## データ属性の命名規則について
+**data(dataset)としては**
+ハイフンで定義すると、キャメルケースでアクセスできるようになる
+キャメルケースで定義すると、ローワーケースに直されてしまう
+
+**attrとしては**
+定義した通りでしかアクセスできない
+ただ、キャメルケースはローワーケースでもアクセスできるようになる <- mjk!

@@ -91,3 +91,9 @@ to be more specific by using data-test attribute
 **attrとしては**
 定義した通りでしかアクセスできない
 ただ、キャメルケースはローワーケースでもアクセスできるようになる <- mjk!
+
+## データ属性の消し方
+`npm install --save-dev babel-plugin-react-remove-properties`
+`npm run eject`
+`Update babel config`
+本番でビルドする → データ属性を消す

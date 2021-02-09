@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# TDD with Jest and Enzyme
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Jest : https://jestjs.io/
 
-## Available Scripts
+## 学習記録としてのメモ
 
-In the project directory, you can run:
+### create-react-appとは？
+- npmのpackage
+- Create React Applications  
+    - 設定(Configuration)  
+    - Webpack(有名なバンドラー)  
+    - Web Server  
 
-### `yarn start`
+### npxとは？
+create-react-appを使用する時,npmではなくnpxを使います。  
+最新のVersion(create-react-appのテンプレート)をダウンロードしてくれます。  
+依存関係の心配はありません  
+npx はnpm5.2+以上  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Jestについて
+- Watch mode
+馴染みがある
+変更に応じて、テストを実行して、コードの品質を担保する　　
+やめたい時は　q　コマンド打つといいよ  
+最後のcommitからチェックされるよ  
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+- How Jest tests are structured
+App.test.js見ればわかるけど、  
+`import { render, screen } from '@testing-library/react';`でcreate-react-appの外でやってるみたい(3ぱで)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+create-react-appはreact17を使ってて、enzyme adapterを相性悪いみたい...
+エラー吐き出してるね
+`import Adapter from '@wojtekmaj/enzyme-adapter-react-17';`使えば動いた！
 
-### `yarn build`
+## Enzymeについて
+toolkitだよ
+DOMを通してSearchしてくれるみたい JQuerystyle selectorsみたい?
+simple eventsをシュミレートする？
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### shallow Rendering
+浅いレンダリングってなんだろ？
+「1 階層深く」レンダーしてレンダーメソッドが返すものを assert できる
+DOMはいらない  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Shallow例:  
+```jsx
+<div id="form">
+ <p>Word here</p>
+ <InputFieldComponents/>
+ <SubmitButtonComponents/>
+</div>
+```
+Mount例:
+```jsx
+<div id="form">
+ <p>Word here</p>
+ <div>
+  <span>Enter some text </span>
+  <input type="text">
+ </div>
+ <button type="submit">Submit</button>
+</div>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### propsとStateをみてみる
+valueを触るし、testする
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### テストの分類
+Unit tests
+- functionごとにテスト
+統合テスト
+- 複数のユニットと一緒に
+End-to-end-Tests
+- ユーザとのインタラクティぶなやーつ

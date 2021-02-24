@@ -10,8 +10,8 @@ import { GlobalStyle } from "./utils";
 
 const App = () => (
   <div>
-    <PrimaryButton modifiers="small">Hello World</PrimaryButton>
-    <SecondaryButton modifiers={["large"]}>Hello World</SecondaryButton>
+    <PrimaryButton modifiers={["small","warning"]}>Hello World</PrimaryButton>
+    <SecondaryButton modifiers={["large", "warning", "secondaryButtonWarning"]}>Hello World</SecondaryButton>
     <TertiaryButton >Hello World</TertiaryButton>
     <GlobalStyle/>
   </div>

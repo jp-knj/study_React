@@ -10,7 +10,30 @@ const BUTTON_MODIFIERS = {
   large: () => `
   font-size: ${typeScale.h5};
   padding: 16px 24px;
+  `,
+  warning: () => `
+  background-color: ${defaultTheme.status.warningColor};
+  color: ${defaultTheme.textColorInverted};
+
+  &:hover, &:focus {
+    background-color: ${defaultTheme.status.warningColorHover};
+    outline: 3px solid ${defaultTheme.status.warningColorHover};
+  }
+
+  &:active {
+    background-color: ${defaultTheme.status.warningColorActive};
+  }
+  `,
+  secondaryButtonWarning: () => `
+    background:none;
+    border: 2px solid ${defaultTheme.status.warningColor};
+    color: ${defaultTheme.status.warningColor};
+  `,
+  tertiaryButtonWarning: () => `
+    background: none;
+    color: ${defaultTheme.status.warningColor};
   `
+
 }
 
 const Button = styled.button`

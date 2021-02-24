@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
-import PrimaryButton, {
-  SecondaryButton,
-  TertiaryButton
-} from './components/Buttons';
+import {
+  SignUpModal
+} from './components';
 
 import { GlobalStyle, darkTheme, defaultTheme } from "./utils";
 
@@ -34,9 +33,7 @@ const App = () => {
         alignItems: "center",
         justifyContent: "space-around"
       }}>
-        <PrimaryButton >Hello World</PrimaryButton>
-        <SecondaryButton>Hello World</SecondaryButton>
-        <TertiaryButton >Hello World</TertiaryButton>
+        <SignUpModal />
         <GlobalStyle />
       </div>
     </ThemeProvider>

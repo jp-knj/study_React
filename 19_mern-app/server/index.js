@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -20,9 +20,18 @@ dotenv.config()
 // Middleware
 app.use(cors())
 
-app.use('/', (req, res, next) => {
-  res.json({ msg: "Hello Everyone!" })
-})
+// // Routes
+// app.use('/user', require('./routes/use.router'))
+
+// Connect to mongodb
+const URI = process.env.MONGO_URL
+mongoose.connect(URI, {
+    useCreateIndex: true,
+    useUnifiedTopology: true
+}, err => {
+    if (err) throw err;
+    console.log("Connected to mongodb")
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

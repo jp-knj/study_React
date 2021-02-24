@@ -97,3 +97,14 @@ to be more specific by using data-test attribute
 `npm run eject`
 `Update babel config`
 本番でビルドする → データ属性を消す
+
+**Tips**
+functionみたいなの作ったら下記みたいなの作る
+@returnで戻り値のValueを書き出すのいいかもね
+```
+/**
+ * Factory function to create a shallowWrapper for the App component.
+ * @function setup
+ * @return {ShallowWrapper}
+ * */
+ ```

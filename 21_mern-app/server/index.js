@@ -5,6 +5,7 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 
 const app = express()
+app.use(bodyParser.json())
 
 /// Config for development
 if (process.env.NODE_ENV === 'development') {

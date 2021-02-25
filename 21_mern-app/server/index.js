@@ -3,6 +3,12 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const dotenv = require('dotenv')
+const connectDB = require('./config/db')
+
+// Config
+dotenv.config({ path: './config/config.env' })
+
+connectDB();
 
 const app = express()
 app.use(bodyParser.json())
@@ -17,10 +23,6 @@ if (process.env.NODE_ENV === 'development') {
   // Morgan give information about each request
   // Cors allow to deal with react for localhost at port 3000 without any problem
 }
-
-// Config
-dotenv.config({ path: './config/config.env' })
-
 
 // Routes
 const authRouter = require('./routes/auth.route')

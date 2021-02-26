@@ -1,7 +1,9 @@
 import React from 'react'
-
+import Register from './pages/Register'
 function App() {
-  return (<div>App</div>);
+  return (
+    <Register />
+  );
 }
 
 export default App;
